@@ -1,0 +1,68 @@
+#firstCard {
+  align-items: center;
+}
+
+#firstCardImageBlank{
+  width: 30em;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#firstCardImage1, #firstCardImage2, #firstCardImage3{
+  width: 20em;
+  position: absolute;
+}
+
+
+#firstCardImage1{
+  margin-top: 5em;
+  margin-left: -25em;
+  z-index: 1;
+
+  animation: showUp 1s ease-out;
+}
+
+#firstCardImage2{
+  margin-left: -10em;
+
+  animation: showUp2 1s ease-out;
+}
+
+#firstCardImage3{
+  margin-top: 7em;
+  margin-left: 2em;
+
+  animation: showUp3 1s ease-out;
+}
+
+@keyframes showUp {
+  from {
+    transform: translateX(-2em);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes showUp2 {
+  from {
+    transform: translateX(-4em);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes showUp3 {
+  from {
+    transform: translateX(-6em);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+
+.firstCardText h2{
+  margin-bottom: 1em;
+}

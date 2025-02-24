@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,87.5,300..800;1,87.5,300..800&display=swap');
+
+@import "./Modals/PopUp.css";
+
+@import "./Header.css";
+@import "./Footer.css";
+
+@import "./MainPageSections/FirstCard.css";
+@import "./MainPageSections/ForBusinesses.css";
+@import "./MainPageSections/Functionalities.css";
+@import "./MainPageSections/FunctionalityCard.css";
+
+
+@import "./Login.css";
+
+:root {
+    --grey: #E1E7EB;
+    --darkBlue: #093657;
+    --lightBlue: #0d4f6e;
+}
+
+body {
+    background-color: var(--grey);
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+}
+
+.appContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex-grow: 1;
+}
+  
+button {
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
+    font-size: 1em;
+
+    padding: 0.5em 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: none;
+    border: 2px solid black;
+    border-radius: 10em;
+    transition: all 0.2s;
+}
+
+button:hover {
+    background-color: rgba(0, 0, 0, 1);
+    color: white;
+    transform: scale(0.97);
+}
+
+button.active{
+    background-color: rgba(0, 0, 0, 1);
+    color: white;
+}
+
+button.secondary {
+    background-color: black;
+    color: white;
+}
+
+button.secondary:hover{
+    transform: scale(0.97);
+}
+
+
+h1, h2, p{
+    margin: 0;
+}
+
+h1{
+    font-size: 1.5em;
+    font-weight: normal;
+    line-height: 1em;
+}
+
+h2 {
+    font-size: 1.4em;
+    line-height: 1em;
+}
+
+p{
+    line-height: 1.1em;
+}
+
+input {
+    padding: 0.6em;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1em;
+}
+
+input:focus {
+    outline: none;
+}
+
+.firstPageSection{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+
+    width: 70%;
+    min-width: 40em;
+    max-width: 60em;
+    margin: 0 auto;
+}
+
+.firstPageSection.column {
+    flex-direction: column;
+}

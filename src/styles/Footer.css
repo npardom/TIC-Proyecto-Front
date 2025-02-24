@@ -1,0 +1,57 @@
+footer {
+    background-color: black;
+    padding: 0.8em;
+    border-radius: 1em 1em 0 0;
+
+    display: flex;
+    gap: 0.8em;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+
+    animation: appearUp 0.5s ease;
+}
+
+@keyframes appearUp {
+    from {
+        transform: translateY(3em);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+footer .logo {
+    width: 2em;
+}
+  
+footer .divider {
+    width: 2px;
+    height: 2em;
+    background-color: white; 
+}
+  
+.socialNetworks {
+    display: flex;
+    align-items: center;
+
+    gap: 0.8em;
+}
+
+.socialNetworks p{
+    margin: 0;
+    color:white;
+}
+
+.socialNetworks a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+  
+.icon {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+  

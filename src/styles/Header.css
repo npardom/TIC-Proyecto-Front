@@ -1,0 +1,99 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2em 2em;
+
+  
+    position: sticky;
+    top: 0;
+    background-color: var(--grey);
+    z-index: 2;
+
+    transition: box-shadow 0.3s;
+}
+
+header.withShadow {
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+}
+
+.mainLogoContainer{
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.mainLogoContainer img {
+    width: 2.5em;
+}
+
+.searchIcon{
+    font-size: 1.1em;
+}
+
+.headerNav {
+    display: flex;
+    align-items: center;
+    gap: 1.3em;
+}
+
+.headerNav a {
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0.5em 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+.headerNav a:hover {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.headerNav a.active {
+    font-weight: 700;
+}
+
+.headerNav a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.headerNav a:hover::after {
+    width: 100%;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.headerNav a.active::after {
+    width: 100%;
+    left: 0;
+    background-color: black;
+}
+
+
+.userMenuContainer{
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.signOutIcon{
+    width: 1.2em;
+    height: 1.2em;
+    cursor: pointer;
+}
+
+.signOutIcon:hover{
+    transform: scale(1.1);
+}
+
+
+
+

@@ -1,0 +1,17 @@
+#functionalities {
+    margin: 2em auto;
+}
+
+#functionalities h2{
+    font-weight: normal;
+}
+
+#functionalities .cardsContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+
+    justify-content: center;
+    align-items: stretch;
+}

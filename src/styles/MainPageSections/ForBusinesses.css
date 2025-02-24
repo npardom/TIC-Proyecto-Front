@@ -1,0 +1,25 @@
+#forBusinesses{
+    align-items: center;
+    justify-content: center;
+}
+
+#forBusinesses img{
+    width: 18em;
+}
+
+.businessesTextContainer{
+    text-align: right;
+}
+
+.businessesTextContainer .paragraph{
+    margin: 1em 0;
+}
+
+.businessesTextContainer a{
+    color: black;
+    font-weight: 600;
+}
+
+.businessesTextContainer a:hover{
+    color: var(--darkBlue);
+}
