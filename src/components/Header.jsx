@@ -9,7 +9,7 @@ import logoDark from '../assets/logos/logoDark.png';
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isLogged, putMessage } = useContext(MyContext);
+  const { isLogged, putMessage, user } = useContext(MyContext);
   
   const [hasShadow, setHasShadow] = useState(false);
 
@@ -55,6 +55,11 @@ function Header() {
         <a className={'headerButton '+ isActive('/donate')} onClick={() => handleClick('/donate')}>
           Dona una comida
         </a>
+        {user && user.type === 'business' &&
+          <a className={'headerButton '+ isActive('/offers')} onClick={() => handleClick('/offers')}>
+            Mis ofertas
+          </a>
+        }
       </nav>
 
       <UserMenu />

@@ -5,13 +5,17 @@
 @import "./Header.css";
 @import "./Footer.css";
 
-@import "./MainPageSections/FirstCard.css";
-@import "./MainPageSections/ForBusinesses.css";
-@import "./MainPageSections/Functionalities.css";
-@import "./MainPageSections/FunctionalityCard.css";
+@import "./MainPage/FirstCard.css";
+@import "./MainPage/ForBusinesses.css";
+@import "./MainPage/Functionalities.css";
+@import "./MainPage/FunctionalityCard.css";
+
+@import "./Offers.css";
+@import "./Donate.css";
+@import "./FoodCard.css";
 
 
-@import "./Login.css";
+@import "./Forms.css";
 
 :root {
     --grey: #E1E7EB;
@@ -39,6 +43,8 @@ button {
     font-family: 'Open Sans', sans-serif;
     cursor: pointer;
     font-size: 1em;
+    font-weight: 600;
+    
 
     padding: 0.5em 1em;
     display: flex;
@@ -49,12 +55,26 @@ button {
     border: 2px solid black;
     border-radius: 10em;
     transition: all 0.2s;
+
+    line-height: 1em;
 }
+
+button.white{
+    background-color: white;
+    border: 2px solid white;
+}
+
 
 button:hover {
     background-color: rgba(0, 0, 0, 1);
     color: white;
-    transform: scale(0.97);
+    transform: scale(0.98);
+}
+
+button.white:hover  {
+    background-color: white;
+    border: 2px solid white;
+    color: black;
 }
 
 button.active{
@@ -72,14 +92,15 @@ button.secondary:hover{
 }
 
 
-h1, h2, p{
+h1, h2, h3, p{
     margin: 0;
+    padding: 0;
 }
 
 h1{
     font-size: 1.5em;
     font-weight: normal;
-    line-height: 1em;
+    line-height: 0.9em;
 }
 
 h2 {
@@ -87,17 +108,22 @@ h2 {
     line-height: 1em;
 }
 
-p{
-    line-height: 1.1em;
+h3{
+    font-size: 1.2em;
+    line-height: 1em;
 }
 
-input {
+p{
+    line-height: 1em;
+}
+
+input, textarea {
     padding: 0.6em;
     font-family: 'Open Sans', sans-serif;
     font-size: 1em;
 }
 
-input:focus {
+input:focus ,  textarea:focus{
     outline: none;
 }
 
@@ -114,4 +140,51 @@ input:focus {
 
 .firstPageSection.column {
     flex-direction: column;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+
+    margin: 1em auto;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 3em 2em;
+    background-color: white;
+    border-radius: 0.8em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cardsContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  
+    flex-grow: 1;
+    overflow-y: auto;
+  
+    max-height: calc(100vh - 18em); 
+  
+    width:100%;
+    padding-right: 0.4em;
+}
+
+.cardsContainer::-webkit-scrollbar {
+    width: 6px; 
+}
+
+.cardsContainer::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.cardsContainer::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.8); 
+    border-radius: 4px;
+}
+
+.emptySectionText{
+    padding: 2em;
 }

@@ -1,0 +1,15 @@
+#offers{
+  width:60%;
+  padding: 2em;
+
+  gap:0.8em;
+  max-width: 40em;
+}
+
+.offersTitleContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+}

@@ -1,0 +1,17 @@
+#donate{
+  width:60%;
+  padding: 2em;
+
+  gap:1em;
+  max-width: 40em;
+}
+
+#donate h2{
+  width: 100%;
+}
+
+.cardsContainer.donate {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+}

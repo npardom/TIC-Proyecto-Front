@@ -57,6 +57,7 @@ header.withShadow {
     padding: 0.5em 0;
     cursor: pointer;
     text-align: center;
+    line-height: 1em;
 }
 
 .headerNav a:hover {

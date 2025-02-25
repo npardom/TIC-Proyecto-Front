@@ -18,7 +18,7 @@ function Login() {
   const [password, setPassword] = useState("");
 
   // Function to send the login request
-  const handleSubmit = (e) => {
+  const handleSubmitPending = (e) => {
     e.preventDefault()
     // Create body
     const body = { username: username, email: username, password: password }
@@ -44,8 +44,12 @@ function Login() {
     })
   }
 
+  const handleSubmit = (e) => {
+    setIsLogged(true)
+  }
+
   return (
-    <form onSubmit={handleSubmit} className='card'>
+    <form onSubmit={handleSubmit} className='card formCard'>
         <h2>Ingresar</h2>
 
         <input 

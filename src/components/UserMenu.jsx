@@ -10,15 +10,12 @@ const isActive = (path) => useLocation().pathname === path ? 'active' : '';
 
 function UserMenu() {
   // Global States and Functions
-  const { signOut, isLogged } = useContext(MyContext)
-
-  // Local States
-  const [user, setUser] = useState({})
+  const { signOut, isLogged, user, setUser} = useContext(MyContext)
 
   const navigate = useNavigate();
 
   // Define function to get user information
-  const getUserInfo = async () => {
+  const getUserInfoPending = async () => {
     fetch(API + "/user", {
       method: "GET",
       headers: { "Content-Type": "application/json",
@@ -26,6 +23,10 @@ function UserMenu() {
     })
     .then((res) => res.json())
     .then((res) => setUser(res))
+  }
+
+  const getUserInfo =  () => {
+    setUser({name: 'Usuario1', type: 'business'})
   }
 
   // Get the user information from the database

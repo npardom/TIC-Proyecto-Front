@@ -12,7 +12,7 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [userType, setUserType] = useState("client");
+  const [type, setType] = useState("client");
 
   // Global States
   const { putMessage, setCurrentlyLoading } = useContext(MyContext);
@@ -25,7 +25,7 @@ function Signup() {
     setCurrentlyLoading(true)
     e.preventDefault()
     // Create body
-    const body = { username, email, password, userType };
+    const body = { username, email, password, type };
     
     // Send request
     fetch(API + "/user/signup", {
@@ -48,14 +48,14 @@ function Signup() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className='card'>
+    <form onSubmit={handleSubmit} className='card formCard'>
       <h2>Crear cuenta</h2>
       <input
         required
         type='text'
-        placeholder='Nombre de usuario'
+        placeholder={type === "client" ? 'Nombre de usuario' : 'Nombre del negocio'}
         value={username}
-        onChange={(e) => setUsername(e.target.value.replace(/\s/g, '').toLowerCase())}
+        onChange={(e) => setUsername(e.target.value)}
       />
 
       <input
@@ -84,12 +84,12 @@ function Signup() {
 
       <p>Tipo de cuenta:</p>
       <div className="radioContainer">
-        <button type="button" className={"radio " + (userType === "client" ? "active" : "")}
-            onClick={() => setUserType("client")}> 
+        <button type="button" className={"radio " + (type === "client" ? "active" : "")}
+            onClick={() => setType("client")}> 
           Cliente 
         </button>
-        <button type="button" className={"radio " + (userType === "business" ? "active" : "")}
-            onClick={() => setUserType("business")}> 
+        <button type="button" className={"radio " + (type === "business" ? "active" : "")}
+            onClick={() => setType("business")}> 
           Negocio 
         </button>
       </div>

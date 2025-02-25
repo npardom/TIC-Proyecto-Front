@@ -1,6 +1,6 @@
-import FirstCard from "../../components/MainPageSections/FirstCard";
-import Functionalities from "../../components/MainPageSections/Functionalities";
-import ForBusinesses from "../../components/MainPageSections/ForBusinesses";
+import FirstCard from "../../components/MainPage/FirstCard";
+import Functionalities from "../../components/MainPage/Functionalities";
+import ForBusinesses from "../../components/MainPage/ForBusinesses";
 
 function MainPage() {
 

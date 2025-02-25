@@ -1,0 +1,47 @@
+.formCard {
+    width: 15em;
+}
+
+.formCard p{
+    margin: 1em 0 0.5em 0;
+}
+
+.formCard input, .formCard textarea {
+    border: none;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+    width:90%;
+}
+
+.formCard textarea {
+    height: 5em;
+    resize: vertical;
+}
+
+.formCard h2{
+    margin-bottom: 0.5em;
+}
+
+.formCard .buttonsContainer{
+    display: flex;
+    gap: 0.5em;
+
+    margin-top: 1em;
+    width: 100%;
+}
+
+.formCard .buttonsContainer button{
+    flex: 1;
+}
+
+.radioContainer {
+    display: flex;
+    gap: 5px;
+    width:100%;
+}
+
+.radioContainer button{
+    flex:1;
+}
+
+
+

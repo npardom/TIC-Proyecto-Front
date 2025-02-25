@@ -1,0 +1,111 @@
+.foodCard{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    justify-content: space-between;
+  
+    border-radius: 1em;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+  
+    padding: 2em;
+    background-image: url("https://images.unsplash.com/photo-1612830720002-4b3b3b3b3b3b");
+    background-color: rgba(0, 0, 0, 0.7);
+    background-blend-mode: darken;
+    background-size: cover;
+    background-position: center;
+  
+    color:white;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+    transition: all 0.5s ease;
+}
+
+.foodCard:hover{
+    background-position: top left;
+}
+
+.foodCard.offer{
+    padding: 3em 2em 2em 2em;
+}
+
+.closeIcon{
+    position: absolute;
+    top: 0.4em;
+    right: 0.4em;
+  
+    font-size: 1.7em;
+    cursor: pointer;
+}
+  
+.closeIcon:hover{
+    opacity: 0.8;
+}
+  
+.closeIcon:active{
+    transform: scale(0.9);
+}
+  
+.foodCardHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.foodCardPrice{
+    font-size: 2em;
+}
+  
+.foodCardDate{
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: right;
+}
+  
+.foodCard .description{
+    margin: 0.5em 0;
+    padding: 0.7em 0 0.7em 0.7em;
+    border-left: 2px solid white;
+}
+  
+.offerUnitsInfo{
+    display: flex;
+    gap:0.7em;
+}
+  
+.offerAvailable, .offerReserved{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex: 1;
+  
+    gap: 0.7em;
+  
+    border: 2px solid white;
+    padding: 0.5em;
+    border-radius: 3em;
+}
+  
+.offerAvailable .icon.disabled{
+    opacity: 0.1;
+    cursor: not-allowed;
+}
+  
+.offerAvailable .icon:hover:not(.disabled){
+    transform: scale(0.95);
+    opacity: 0.8;
+}
+  
+.offerReserved{
+    gap: 0;
+    flex-direction: column;
+}
+  
+.availableInfo{
+    text-align: center;
+}
+  
+.offerAvailable .number, .offerReserved .number{
+    font-size: 1.8em;
+    font-weight: bold;
+}
+  

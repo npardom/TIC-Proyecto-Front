@@ -16,8 +16,13 @@ import Login from './pages/notLogged/login.jsx';
 import Signup from './pages/notLogged/signup.jsx';
 import MainPage from './pages/notLogged/mainPage.jsx';
 
+import Offers from './pages/logged/offers.jsx';
+import CreateOffer from './pages/logged/createOffer.jsx';
+import Donate from './pages/logged/donate.jsx';
+
 // CSS Imports
 import './styles/index.css'
+
 
 function App() {
   // States to be used globally
@@ -25,6 +30,7 @@ function App() {
   const [popUpIsShown, setPopUpIsShown] = useState(false)
   const [popUpType, setPopUpType] = useState('error')
   const [popUpMessage, setPopUpMessage] = useState('')
+  const [user, setUser] = useState({})
 
   // Function to show a pop up message
   const putMessage = (message, type = 'error') => {
@@ -37,6 +43,7 @@ function App() {
   function signOut() {
     localStorage.removeItem("accessToken")
     localStorage.removeItem("refreshToken")
+    setUser({})
     setIsLogged(false)
     setPopUpMessage('') 
     setPopUpIsShown(false)
@@ -67,7 +74,7 @@ function App() {
   }
 
   // Check token validity on page load
-  //useEffect(() => { checkValidity() }, [])
+  useEffect(() => { checkValidity() }, [])
 
   // Check token validity every 10 minutes (600.000 ms)
   useEffect(() => {
@@ -78,7 +85,7 @@ function App() {
   }, [isLogged])
 
   return (
-    <MyContext.Provider value={{ checkValidity , isLogged, setIsLogged ,signOut, putMessage, popUpIsShown, setPopUpIsShown, popUpType }}>
+    <MyContext.Provider value={{ user, setUser, checkValidity , isLogged, setIsLogged ,signOut, putMessage, popUpIsShown, setPopUpIsShown, popUpType }}>
       <Router>
         <div className="appContainer">
           <PopUp message = {popUpMessage} />
@@ -89,6 +96,11 @@ function App() {
               <Route path="*" element={<MainPage />} />
               <Route path="/login" element={!isLogged ? <Login />: <Navigate replace to={"/"}/>} />
               <Route path="/signup" element={!isLogged ? <Signup />: <Navigate replace to={"/"}/>} />
+
+              <Route path="/search" element={<h1>Search</h1>} />
+              <Route path="/donate" element={isLogged ? <Donate /> : <Navigate replace to={"/login"}/>} />
+              <Route path="/offers" element={isLogged && user.type === 'business' ? <Offers /> : <Navigate replace to={"/login"}/>} />
+              <Route path="/createOffer" element={isLogged && user.type === 'business' ? <CreateOffer /> : <Navigate replace to={"/login"}/>} />
             </Routes>
           </div>
           <Footer/>  
