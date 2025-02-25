@@ -6,9 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { API } from "../../assets/constants.js"
 import MyContext from '../../context.js';
 
-// Framer Motion
-import { motion } from 'framer-motion'
-
 function Signup() {
   // Local states
   const [username, setUsername] = useState("");
@@ -51,14 +48,10 @@ function Signup() {
   }
 
   return (
-    <motion.form onSubmit={handleSubmit}
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1, ease: "easeOut" }}
-      className='card'
-    >
+    <form onSubmit={handleSubmit} className='card'>
       <h2>Crear cuenta</h2>
       <input
+        required
         type='text'
         placeholder='Nombre de usuario'
         value={username}
@@ -70,6 +63,7 @@ function Signup() {
         placeholder='Correo electrónico'
         value={email}
         onChange={(e) => setEmail(e.target.value.toLowerCase())}
+        required
       />
 
       <input
@@ -77,6 +71,7 @@ function Signup() {
         placeholder='Contraseña'
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        required
       />
 
       <input
@@ -84,6 +79,7 @@ function Signup() {
         placeholder='Confirmar contraseña'
         value={password2}
         onChange={(e) => setPassword2(e.target.value)}
+        required
       />
 
       <p>Tipo de cuenta:</p>
@@ -101,7 +97,7 @@ function Signup() {
       <div className="buttonsContainer">
         <button type='submit' className="secondary">Registrarse</button>
       </div>
-    </motion.form>
+    </form>
   )
 }
 

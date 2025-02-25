@@ -11,6 +11,19 @@ header{
     z-index: 2;
 
     transition: box-shadow 0.3s;
+
+    animation: appearDown 1s ease;
+}
+
+@keyframes appearDown {
+    from {
+        opacity: 0;
+        transform: translateY(-2em);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 header.withShadow {
@@ -28,7 +41,7 @@ header.withShadow {
 }
 
 .searchIcon{
-    font-size: 1.1em;
+    display: block;
 }
 
 .headerNav {

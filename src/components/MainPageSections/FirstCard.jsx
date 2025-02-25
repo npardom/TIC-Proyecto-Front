@@ -2,16 +2,9 @@ import foodPlate from '../../assets/images/foodPlate.png'
 import foodBag from '../../assets/images/foodBag.png'
 import foodBox from '../../assets/images/foodBox.png'
 
-import { motion } from 'framer-motion'
-
 function FirstCard() {
   return (
-    <motion.div className="firstPageSection" id = "firstCard"
-        initial={{ opacity: 0, x:-50}}
-        whileInView={{ opacity: 1, x: 0  }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        viewport={{ once: true, amount: 0.6 }}
-    >
+    <div className="firstPageSection" id = "firstCard"    >
         <img src={foodPlate} id="firstCardImage1" />
         <img src={foodBag} id="firstCardImage2" />
         <img src={foodBox} id="firstCardImage3" />
@@ -27,7 +20,7 @@ function FirstCard() {
                 podrás podrás podrás podrás podrás.
             </p>
         </div>
-    </motion.div>
+    </div>
   )
 }
 

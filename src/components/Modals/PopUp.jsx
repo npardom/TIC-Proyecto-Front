@@ -1,6 +1,5 @@
 // React and React Router Imports
 import { useContext, useEffect} from 'react';
-import { IoMdCloseCircle } from "react-icons/io";
 
 // Context and Constants Import
 import MyContext from '../../context.js';
@@ -14,15 +13,17 @@ function PopUp({message}) {
     if(popUpIsShown) {
       setTimeout(() => {
         setPopUpIsShown(false);
-      }, 4000);
+      }, 2000);
     }
   }, [popUpIsShown]);
 
   return (
-    <div className={'popUp ' + popUpType + (popUpIsShown ? " show": "")} id = "popUpId" >
-      <IoMdCloseCircle onClick={() => setPopUpIsShown(false)} className="closeIcon"/>
-      <p>{message}</p>
-      <div className={'loader' + (popUpIsShown ? " show": "")} ></div>
+    <div
+      className={"popupBackground" + (popUpIsShown ? " show" : "")} onClick={() => setPopUpIsShown(false)}>
+      <div className={"popUp " + popUpType + (popUpIsShown ? " show" : "")} onClick={(e) => e.stopPropagation()}>
+        <p>{message}</p>
+        <div className={"loader" + (popUpIsShown ? " show" : "")}></div>
+      </div>
     </div>
   )
 }

@@ -6,9 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import MyContext from '../../context.js';
 import { API } from "../../assets/constants.js"
 
-// Framer Motion
-import { motion } from 'framer-motion'
-
 function Login() {
   // Used to navigate between pages
   const navigate = useNavigate();
@@ -48,12 +45,7 @@ function Login() {
   }
 
   return (
-    <motion.form onSubmit={handleSubmit}
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1, ease: "easeOut" }}
-      className='card'
-    >
+    <form onSubmit={handleSubmit} className='card'>
         <h2>Ingresar</h2>
 
         <input 
@@ -77,7 +69,7 @@ function Login() {
           <button type='button' onClick={() => navigate("/signup")} >Registrarse</button>
         </div>
 
-    </motion.form>
+    </form>
   )
 }
 

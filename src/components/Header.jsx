@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import MyContext from '../context.js';
 import UserMenu from './UserMenu.jsx';
 import logoDark from '../assets/logos/logoDark.png';
-import { motion } from 'framer-motion';
+
 
 function Header() {
   const navigate = useNavigate();
@@ -39,13 +39,7 @@ function Header() {
   }
 
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0 }}
-      className={hasShadow ? 'withShadow' : ''}
-    >
+    <header className={hasShadow ? 'withShadow':''}>
       <div className='mainLogoContainer'>
         <img src={logoDark} alt="Logo" />
         <h1>La <b>Pagina</b></h1>
@@ -64,7 +58,7 @@ function Header() {
       </nav>
 
       <UserMenu />
-    </motion.header>
+    </header>
   );
 }
 
