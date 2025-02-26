@@ -51,7 +51,7 @@ function OfferCard({offer}) {
           <h3>{offer.name}</h3>
           <p className='foodCardPrice'>{formatToColombianMoney(offer.price)}</p>
         </div>
-        <div>
+        <div className='foodAvailabilityContainer'>
           <p>Disponible hasta</p>
           <p className='foodCardDate'>{formatToSpanishDate(offer.expiration)}</p>
         </div>

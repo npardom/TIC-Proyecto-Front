@@ -19,6 +19,8 @@ import Offers from './pages/logged/offers.jsx';
 import CreateOffer from './pages/logged/createOffer.jsx';
 import Donate from './pages/logged/donate.jsx';
 
+import Catalogue from './pages/logged/catalogue.jsx';
+
 // CSS Imports
 import './styles/index.css'
 
@@ -111,7 +113,7 @@ function App() {
               <Route path="/login" element={!isLogged ? <Login />: <Navigate replace to={"/"}/>} />
               <Route path="/signup" element={!isLogged ? <Signup />: <Navigate replace to={"/"}/>} />
 
-              <Route path="/search" element={<h1>Search</h1>} />
+              <Route path="/search" element={isLogged ? <Catalogue /> : <Navigate replace to={"/login"}/>} />
               <Route path="/donate" element={isLogged ? <Donate /> : <Navigate replace to={"/login"}/>} />
               <Route path="/offers" element={isLogged && user.type === 'business' ? <Offers /> : <Navigate replace to={"/login"}/>} />
               <Route path="/createOffer" element={isLogged && user.type === 'business' ? <CreateOffer /> : <Navigate replace to={"/login"}/>} />

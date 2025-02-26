@@ -6,7 +6,7 @@
     font-weight: normal;
 }
 
-#functionalities .cardsContainer{
+#functionalities .cardsHolder{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

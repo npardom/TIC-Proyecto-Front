@@ -48,6 +48,12 @@
 .foodCardHeader{
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+}
+
+.foodAvailabilityContainer{
+    display: flex;
+    flex-direction: column;
     align-items: flex-end;
 }
 
@@ -114,11 +120,26 @@
     justify-content: flex-end;
     gap: 0.3em;
     align-items: center;
-
-    margin-top: 0.7em;
     font-weight: 600;
 }
 
 .offerLocation .icon{
     font-size: 0.8em;
+}
+
+.cardFooter1{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.5em;
+}
+
+.offerUnitsInfo2{
+    display: flex;
+    flex-direction: column;
+}
+
+.offerUnitsInfo2 .number{
+    font-size: 1.7em;
+    font-weight: bold;
 }

@@ -14,7 +14,7 @@ function Functionalities() {
     return (
         <div className="firstPageSection column" id = "functionalities">
             <h2>Con <b>La Pagina</b>, podrás:</h2>
-            <div className="cardsContainer">
+            <div className="cardsHolder">
                 {Object.entries(functionalities).map(([text, image]) => <FunctionalityCard text={text} image={image} key={text} />)}
             </div>
         </div>

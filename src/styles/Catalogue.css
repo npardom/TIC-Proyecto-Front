@@ -1,0 +1,37 @@
+#catalogue{
+  width:60%;
+  padding: 2em;
+
+  gap:0.8em;
+  max-width: 40em;
+}
+
+#catalogue h2{
+  width: 100%;
+}
+
+.foodCardSearch{
+  display: flex;
+  gap: 0.5em;
+  justify-content: flex-start;
+  align-items: center;
+
+  border:2px black solid;
+  border-radius: 1.5em;
+
+  padding: 0.5em 1em;
+  width: calc(100% - 2em);
+}
+
+.foodCardSearch .icon{
+  font-size: 1.2em;
+  opacity: 0.8;
+}
+
+.foodCardSearch input{
+  padding: 0;
+  border: 0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: transparent;
+  flex:1;
+}
