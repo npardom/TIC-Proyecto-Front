@@ -48,7 +48,7 @@
 .foodCardHeader{
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: flex-end;
 }
 
 .foodCardPrice{
@@ -86,8 +86,8 @@
 }
   
 .offerAvailable .icon.disabled{
-    opacity: 0.1;
-    cursor: not-allowed;
+    opacity: 0;
+    pointer-events: none;
 }
   
 .offerAvailable .icon:hover:not(.disabled){
@@ -108,4 +108,17 @@
     font-size: 1.8em;
     font-weight: bold;
 }
-  
+
+.offerLocation{
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.3em;
+    align-items: center;
+
+    margin-top: 0.7em;
+    font-weight: 600;
+}
+
+.offerLocation .icon{
+    font-size: 0.8em;
+}

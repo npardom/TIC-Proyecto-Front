@@ -3,7 +3,6 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Context and Constants Import
-import { API } from "../../assets/constants.js"
 import MyContext from '../../context.js';
 
 function Signup() {
@@ -15,33 +14,33 @@ function Signup() {
   const [type, setType] = useState("client");
 
   // Global States
-  const { putMessage, setCurrentlyLoading } = useContext(MyContext);
+  const { putMessage } = useContext(MyContext);
+
+  const validFields = (username !== '') && (email !== '') && (password !== '') && (password === password2)
 
   // Navigate function
   const navigate = useNavigate()
 
   // Function to send the signup request
   const handleSubmit = (e) => {
-    setCurrentlyLoading(true)
     e.preventDefault()
     // Create body
     const body = { username, email, password, type };
     
     // Send request
-    fetch(API + "/user/signup", {
+    fetch(import.meta.env.VITE_API_URL + "/user/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)
     })
       .then((res) => res.json())
       .then((res) => {
-        setCurrentlyLoading(false)
         if (res.error) {
           if (res.error === "Username already exists.") { putMessage("Este nombre de usuario ya está registrado.") }
           else if (res.error === "Email already exists.") { putMessage("Este correo ya está registrado.") }
-          else if (res.error === "Error sending email.") { putMessage("Ocurrió un error. Por favor, inténtalo de nuevo.") }
+          else putMessage(res.error) 
         } else if (res.message && res.message === "User created.") {
-          putMessage("Usuario creado. Se envió un correo para verificar la cuenta.", 'good')
+          putMessage("Usuario creado. Ya puedes ingresar.")
           navigate("/login");
         }
       })
@@ -95,7 +94,7 @@ function Signup() {
       </div>
 
       <div className="buttonsContainer">
-        <button type='submit' className="secondary">Registrarse</button>
+        <button type='submit' className={"secondary " + (!validFields ? "disabled":'')} disabled={!validFields}>Registrarse</button>
       </div>
     </form>
   )

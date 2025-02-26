@@ -10,23 +10,19 @@ const isActive = (path) => useLocation().pathname === path ? 'active' : '';
 
 function UserMenu() {
   // Global States and Functions
-  const { signOut, isLogged, user, setUser} = useContext(MyContext)
+  const { signOut, isLogged, user, setUser, checkValidity} = useContext(MyContext)
 
   const navigate = useNavigate();
 
   // Define function to get user information
-  const getUserInfoPending = async () => {
-    fetch(API + "/user", {
+  const getUserInfo = async () => {
+    fetch(import.meta.env.VITE_API_URL + "/user/getUser", {
       method: "GET",
       headers: { "Content-Type": "application/json",
                 "Authorization": await checkValidity() } 
     })
     .then((res) => res.json())
     .then((res) => setUser(res))
-  }
-
-  const getUserInfo =  () => {
-    setUser({name: 'Usuario1', type: 'business'})
   }
 
   // Get the user information from the database
@@ -43,7 +39,7 @@ function UserMenu() {
     <div className='userMenuContainer'>
       <button className={isActive(isLogged ? '/user' : '/login')}
       onClick={() => navigate(isLogged ? '/user' : '/login')}>
-        {isLogged ? user.name : 'Ingresar'}
+        {isLogged ? user.username : 'Ingresar'}
       </button>
 
       {isLogged && 

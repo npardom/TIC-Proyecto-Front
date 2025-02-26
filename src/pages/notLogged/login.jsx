@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 // Context and Constants Import
 import MyContext from '../../context.js';
-import { API } from "../../assets/constants.js"
 
 function Login() {
   // Used to navigate between pages
@@ -17,13 +16,15 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const validFields = (username !== '') && (password !== '') 
+
   // Function to send the login request
-  const handleSubmitPending = (e) => {
+  const handleSubmit= (e) => {
     e.preventDefault()
     // Create body
     const body = { username: username, email: username, password: password }
     // Send request
-    fetch(API + "/user/login", {
+    fetch(import.meta.env.VITE_API_URL + "/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)
@@ -33,19 +34,14 @@ function Login() {
       if (res.error) {
         if (res.error === "User not found." || res.error === "Wrong password.") {
           putMessage("Usuario y/o contraseña incorrectos.")
-        }else if (res.error === "Unverified email.") {
-          putMessage("La cuenta no ha sido verificada aún.")
+        }else{
+          putMessage(res.error)
         }
-      }else if (res.accessToken && res.refreshToken) {
+      }else if (res.accessToken) {
         localStorage.setItem("accessToken", res.accessToken)
-        localStorage.setItem("refreshToken", res.refreshToken)
         setIsLogged(true)
       }
     })
-  }
-
-  const handleSubmit = (e) => {
-    setIsLogged(true)
   }
 
   return (
@@ -69,7 +65,7 @@ function Login() {
         />
 
         <div className="buttonsContainer">
-          <button type='submit' className="secondary">Ingresar</button>
+          <button type='submit' className={"secondary " + (!validFields ? "disabled":'')} disabled={!validFields}>Ingresar</button>
           <button type='button' onClick={() => navigate("/signup")} >Registrarse</button>
         </div>
 

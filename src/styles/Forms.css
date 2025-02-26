@@ -45,3 +45,62 @@
 
 
 
+.fileInputContainer{
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  
+    width: 100%;
+
+    position: relative;
+  }
+  
+  
+  .imageInput {
+    position: absolute;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .imageButton {
+    display: block;
+    border: 2px solid black;
+    padding: 0.5em 1em;
+    border-radius: 2em;
+    cursor: pointer;
+  
+    transition: all 0.2s ease;
+  
+    flex: 1;
+    text-align: center;
+  }
+  
+  .imageButton:hover {
+    background-color: black;
+    color: white;
+  }
+  
+  .fileIndicatorContainer {
+    display: flex;
+    align-items: center; 
+    gap: 0.1em;
+    overflow: hidden;
+  }
+  
+  .fileIndicatorContainer .filename {
+    flex: 1;
+    white-space: nowrap;
+    overflow-x:hidden;
+    text-overflow: ellipsis;
+  
+    font-style: italic;
+    color: rgb(60, 60, 60);
+  }
+  
+  .fileIndicatorContainer .deleteIcon {
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  

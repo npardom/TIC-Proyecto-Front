@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 
 // Context and Constants Import
 import MyContext from './context.js';
-import { API } from "./assets/constants.js"
 
 // Component Imports
 import PopUp from './components/Modals/PopUp.jsx';
@@ -28,53 +27,57 @@ function App() {
   // States to be used globally
   const [isLogged, setIsLogged] = useState(localStorage.getItem('accessToken'))
   const [popUpIsShown, setPopUpIsShown] = useState(false)
-  const [popUpType, setPopUpType] = useState('error')
   const [popUpMessage, setPopUpMessage] = useState('')
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState(localStorage.getItem('accessToken') ? {type: 'business'} : {})
+  const [offers, setOffers] =useState([])
 
   // Function to show a pop up message
-  const putMessage = (message, type = 'error') => {
+  const putMessage = (message) => {
     setPopUpMessage(message)
-    setPopUpType(type)
     setPopUpIsShown(true)
   }
 
   // Function to signout
   function signOut() {
     localStorage.removeItem("accessToken")
-    localStorage.removeItem("refreshToken")
     setUser({})
     setIsLogged(false)
     setPopUpMessage('') 
     setPopUpIsShown(false)
-    setPopUpType('error')
+    setOffers([])
   }
 
   // Function to check token validity and refresh access token if it's expired
   async function checkValidity() { 
-    return await fetch(API + "/user/authenticate", {
-      method: "POST",
+    return await fetch(import.meta.env.VITE_API_URL + "/user/authenticate", {
+      method: "GET",
       headers: { "Content-Type": "application/json"  ,
                   "Authorization": localStorage.getItem("accessToken"),
-               },
-      body: JSON.stringify({ refreshToken: localStorage.getItem("refreshToken")})
+               }
     })
     .then((res) => res.json())
     .then((res) => {
       // If access token is refreshed (or still valid), save it and set isLogged to true
-      if (res.accessToken) { 
+      if (res.accessToken) {
         localStorage.setItem("accessToken", res.accessToken)
         setIsLogged(true)
       }
       // If tokens are expired or there's an error, signout
-      else if (res.error){ signOut() }
+      else if (res.error){ 
+        signOut()
+        putMessage("Tu acceso expiró. Por favor vuelve a ingresar.")
+      }
       // Return the access token for further use
       return res.accessToken
     })
   }
 
   // Check token validity on page load
-  useEffect(() => { checkValidity() }, [])
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")){
+      checkValidity() 
+    }
+  }, [])
 
   // Check token validity every 10 minutes (600.000 ms)
   useEffect(() => {
@@ -84,8 +87,19 @@ function App() {
     }
   }, [isLogged])
 
+  // Function to get offers from the business
+  const getMyOffers = async () => {
+    fetch(import.meta.env.VITE_API_URL + "/offer/getByUser", {
+      method: "GET",
+      headers: { "Content-Type": "application/json",
+                "Authorization": await checkValidity() } 
+    })
+    .then((res) => res.json())
+    .then((res) => setOffers(res))
+  }
+
   return (
-    <MyContext.Provider value={{ user, setUser, checkValidity , isLogged, setIsLogged ,signOut, putMessage, popUpIsShown, setPopUpIsShown, popUpType }}>
+    <MyContext.Provider value={{ user, setUser, checkValidity , isLogged, setIsLogged ,signOut, putMessage, popUpIsShown, setPopUpIsShown, offers, getMyOffers, setOffers}}>
       <Router>
         <div className="appContainer">
           <PopUp message = {popUpMessage} />

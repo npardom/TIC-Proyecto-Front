@@ -18,12 +18,9 @@ function PopUp({message}) {
   }, [popUpIsShown]);
 
   return (
-    <div
-      className={"popupBackground" + (popUpIsShown ? " show" : "")} onClick={() => setPopUpIsShown(false)}>
-      <div className={"popUp " + popUpType + (popUpIsShown ? " show" : "")} onClick={(e) => e.stopPropagation()}>
-        <p>{message}</p>
-        <div className={"loader" + (popUpIsShown ? " show" : "")}></div>
-      </div>
+    <div className={"popUp " + (popUpIsShown ? " show" : "")}>
+      <p>{message}</p>
+      <div className={"loader" + (popUpIsShown ? " show" : "")}></div>
     </div>
   )
 }

@@ -11,7 +11,7 @@ function DonateCard({offer}) {
 
       <div>
         <h3>{offer.name}</h3>
-        <p className='foodCardPrice'>${offer.price}</p>
+        <p className='foodCardPrice'>${parseInt(offer.price, 10).toLocaleString('es-CO')}</p>
         <p className='description'>{offer.description}</p>
       </div>
 
