@@ -8,8 +8,8 @@ function Catalogue() {
   const [businessFilters, setBusinessFilters] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [allSelected, setAllSelected] = useState(true);
+  const [sortBy, setSortBy] = useState("date");
 
-  // Function to get offers from the business
   const getOffers = () => {
     fetch(import.meta.env.VITE_API_URL + "/offer/getAllAvailable", {
       method: "GET",
@@ -22,7 +22,6 @@ function Catalogue() {
     });
   }
 
-  // Generate business filters dynamically
   const generateBusinessFilters = (offers) => {
     const businessMap = {};
     offers.forEach(offer => {
@@ -36,17 +35,14 @@ function Catalogue() {
     setBusinessFilters(initialFilters);
   };
 
-  // Function to search and filter offers
   const filterOffers = () => {
     let filtered = offers;
     
-    // Apply search filter
     const lowerCaseWord = searchTerm.toLowerCase();
     if (lowerCaseWord) {
       filtered = filtered.filter(offer => offer.name.toLowerCase().includes(lowerCaseWord) || offer.description.toLowerCase().includes(lowerCaseWord));
     }
     
-    // Apply business filter
     const selectedBusinesses = Object.entries(businessFilters)
       .filter(([_, isChecked]) => isChecked)
       .map(([business]) => business);
@@ -57,10 +53,15 @@ function Catalogue() {
       filtered = [];
     }
     
+    if (sortBy === "date") {
+      filtered = filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (sortBy === "price") {
+      filtered = filtered.sort((a, b) => a.price - b.price);
+    }
+    
     setFilteredOffers(filtered);
   };
 
-  // Handle checkbox change
   const toggleBusinessFilter = (business) => {
     setBusinessFilters(prevFilters => {
       const updatedFilters = { ...prevFilters, [business]: !prevFilters[business] };
@@ -69,7 +70,6 @@ function Catalogue() {
     });
   };
 
-  // Handle select all toggle
   const toggleAllFilters = () => {
     const newState = !allSelected;
     const updatedFilters = Object.keys(businessFilters).reduce((acc, business) => ({ ...acc, [business]: newState }), {});
@@ -77,10 +77,11 @@ function Catalogue() {
     setAllSelected(newState);
   };
 
-  // Update filtered offers when search term or filters change
-  useEffect(() => { filterOffers(); }, [searchTerm, businessFilters]);
+  const toggleSortBy = (key) => {
+    setSortBy(prevSort => (prevSort === key ? "" : key));
+  };
 
-  // Get offers on component mount
+  useEffect(() => { filterOffers(); }, [searchTerm, businessFilters, sortBy]);
   useEffect(() => { getOffers(); }, []);
 
   return (
@@ -97,34 +98,38 @@ function Catalogue() {
           <div className="filtersContainer">
             <h3>Filtrar por tienda</h3>
             <label className="custom-checkbox">
-              <input 
-                type="checkbox" 
-                checked={allSelected} 
-                onChange={toggleAllFilters} 
-              />
+              <input type="checkbox" checked={allSelected} onChange={toggleAllFilters} />
               <span className="checkmark"></span>
               <span>Todas</span>
             </label>
             {Object.entries(businessFilters).map(([business, isChecked]) => (
               <label key={business} className="custom-checkbox">
-              <input 
-                type="checkbox" 
-                checked={isChecked} 
-                onChange={() => toggleBusinessFilter(business)} 
-              />
+              <input type="checkbox" checked={isChecked} onChange={() => toggleBusinessFilter(business)} />
               <span className="checkmark"></span>
               <span>{business} ({offers.filter(o => o.businessName === business).length})</span>
               </label>
             ))}
+
+            <h3>Ordenar por</h3>
+            <label className="custom-checkbox">
+              <input type="checkbox" checked={sortBy === "date"} onChange={() => toggleSortBy('date')} />
+              <span className="checkmark"></span>
+              <span>Fecha</span>
+            </label>
+            <label className="custom-checkbox">
+              <input type="checkbox" checked={sortBy === "price"} onChange={() => toggleSortBy('price')} />
+              <span className="checkmark"></span>
+              <span>Precio</span>
+            </label>
           </div>
-          {filteredOffers.length === 0 ? <p className='emptySectionText'>No se encontró ninguna oferta.</p>:
+
+          {filteredOffers.length === 0 ? <p className='emptySectionText'>No se encontró ninguna oferta.</p> :
           <div className="cardsContainer">
             {filteredOffers.map((offer, index) => (
               <CatalogueCard key={index} offer={offer} />
             ))}
           </div>
           }
-
         </div>
     </div>
   );
