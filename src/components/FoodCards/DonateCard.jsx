@@ -1,22 +1,13 @@
-const buyRequest = (id) => {
-  var confirmDonate= confirm("¿Estás seguro de que deseas donar esta orden?")
-  if (confirmDonate){
-    // Donate order with id
-  }
-}
+import {formatToColombianMoney} from '../../assets/constants.js'
 
-function DonateCard({offer}) {
+
+function DonateCard({offer, onClick}) {
   return (
-    <div className='foodCard' style={{backgroundImage: `url(${offer.image})`}}>
-
-      <div>
+    <div className='foodCard donateCard' 
+    style={{backgroundImage: `url(${offer.image})`}}
+    onClick={onClick}>
         <h3>{offer.name}</h3>
-        <p className='foodCardPrice'>${parseInt(offer.price, 10).toLocaleString('es-CO')}</p>
-        <p className='description'>{offer.description}</p>
-      </div>
-
-      <button className="white" onClick={() => buyRequest(offer.id)}>Pagar orden</button>
-
+        <p className='foodCardPrice'>{formatToColombianMoney(offer.price)}</p>
     </div>
   )
 }

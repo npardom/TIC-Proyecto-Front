@@ -1,9 +1,9 @@
 #catalogue{
-  width:60%;
+  width:70%;
   padding: 2em;
 
   gap:0.8em;
-  max-width: 40em;
+  max-width: 50em;
 }
 
 #catalogue h2{
@@ -34,4 +34,108 @@
   font-family: 'Open Sans', sans-serif;
   background-color: transparent;
   flex:1;
+}
+
+.catalogueCardButtonsContainer{
+  display: flex;
+  gap: 0.5em;
+}
+
+.catalogueContainer{
+  display: flex;
+  gap: 0.5em;
+  width: 100%;
+}
+
+.filtersContainer{
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+
+  min-width: 7em;
+  max-width: 12em;
+
+  flex-grow: 1;
+  overflow-y: auto;
+
+  max-height: calc(100vh - 18em); 
+  padding-right: 0.5em;
+}
+
+.filtersContainer::-webkit-scrollbar {
+  width: 6px; 
+}
+
+.filtersContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.filtersContainer::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.5); 
+  border-radius: 4px;
+}
+
+
+.filtersContainer h3{
+  font-size: 1.1em;
+  margin-bottom: 0.5em;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: flex-start;
+  line-height: 1em;
+
+  cursor: pointer;
+  position: relative;
+
+  margin-bottom: 0.5em;
+  padding-left: 1.5em;
+}
+
+.custom-checkbox:hover{
+  color: rgb(50, 50, 50);
+}
+
+.custom-checkbox:hover .checkmark{
+  border-color: rgb(50, 50, 50);
+}
+
+.custom-checkbox:hover .checkmark::after {
+  background-color: rgb(50, 50, 50);
+}
+
+.custom-checkbox input {
+  display: none;
+}
+
+.custom-checkbox .checkmark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.8em;
+  height: 0.8em;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.custom-checkbox .checkmark::after {
+  content: "";
+  position: absolute;
+  opacity: 0;
+  width: 0.5em;
+  height: 0.5em;
+  background-color: black;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.custom-checkbox input:checked + .checkmark::after {
+  opacity: 1;
+}
+
+.custom-checkbox input:checked + .checkmark + span {
+  font-weight: 600;
 }

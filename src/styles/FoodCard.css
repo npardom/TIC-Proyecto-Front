@@ -8,7 +8,7 @@
     border-radius: 1em;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
   
-    padding: 2em;
+    padding: 1.5em;
     background-image: url("https://images.unsplash.com/photo-1612830720002-4b3b3b3b3b3b");
     background-color: rgba(0, 0, 0, 0.7);
     background-blend-mode: darken;
@@ -24,14 +24,10 @@
     background-position: top left;
 }
 
-.foodCard.offer{
-    padding: 3em 2em 2em 2em;
-}
-
 .closeIcon{
     position: absolute;
-    top: 0.4em;
-    right: 0.4em;
+    top: 0.6em;
+    right: 0.6em;
   
     font-size: 1.7em;
     cursor: pointer;
@@ -51,44 +47,67 @@
     align-items: flex-start;
 }
 
-.foodAvailabilityContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
 .foodCardPrice{
     font-size: 2em;
 }
-  
-.foodCardDate{
-    font-size: 1.3em;
-    font-weight: bold;
-    text-align: right;
+
+.foodCardDateContainer{
+    display: flex;
+    gap: 0.3em;
+    align-items: center;
+
+    width:fit-content;
+    margin-bottom: 0.5em;
+
+    font-size: 1em;
+
+    background-color: white;
+    color: black;
+
+    text-shadow: none;
+    padding: 0.3em 0.6em;
+    border-radius: 1em;
 }
-  
+
+.foodCardDateContainer span{
+    font-weight: 600;
+}
+
+.foodCardDateContainer p{
+    line-height: 0.9em;
+}
+
+.foodCardDateContainer .icon{
+    font-size: 1em;
+}
+
 .foodCard .description{
-    margin: 0.5em 0;
-    padding: 0.7em 0 0.7em 0.7em;
-    border-left: 2px solid white;
+    margin: 1em 0;
 }
   
 .offerUnitsInfo{
     display: flex;
     gap:0.7em;
+    justify-content: flex-end;
+    width: 100%;
+
 }
   
 .offerAvailable, .offerReserved{
     display: flex;
     align-items: center;
     justify-content: space-around;
-    flex: 1;
   
     gap: 0.7em;
   
     border: 2px solid white;
-    padding: 0.5em;
-    border-radius: 3em;
+    padding: 0.3em 0.5em;
+    border-radius: 2em;
+    flex: 1;
+}
+
+.offerAvailable .icon:active{
+    transform: scale(0.9);
 }
   
 .offerAvailable .icon.disabled{
@@ -96,10 +115,6 @@
     pointer-events: none;
 }
   
-.offerAvailable .icon:hover:not(.disabled){
-    transform: scale(0.95);
-    opacity: 0.8;
-}
   
 .offerReserved{
     gap: 0;
@@ -111,7 +126,7 @@
 }
   
 .offerAvailable .number, .offerReserved .number{
-    font-size: 1.8em;
+    font-size: 1.5em;
     font-weight: bold;
 }
 
@@ -120,7 +135,7 @@
     justify-content: flex-end;
     gap: 0.3em;
     align-items: center;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .offerLocation .icon{
@@ -142,4 +157,25 @@
 .offerUnitsInfo2 .number{
     font-size: 1.7em;
     font-weight: bold;
+}
+
+.foodCard.donateCard{
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 3em;
+}
+
+.foodCard.donateCard:hover{
+    opacity: 0.9;
+}
+
+.foodCard.donateCard:active{
+    transform: scale(0.98);
+}
+
+.catalogueCardHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }

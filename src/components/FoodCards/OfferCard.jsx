@@ -4,6 +4,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import { MdDateRange } from "react-icons/md";
 
 import {formatToColombianMoney, formatToSpanishDate} from '../../assets/constants.js'
 
@@ -46,21 +47,24 @@ function OfferCard({offer}) {
       
       <IoMdCloseCircle title='Borrar oferta' className='closeIcon' onClick={() => deleteOffer()} />
       
+      <div className='foodCardDateContainer'>
+        <MdDateRange className='icon' />
+        <p>Hasta {formatToSpanishDate(offer.expiration)}</p>
+      </div>
+
       <div className='foodCardHeader'>
         <div>
           <h3>{offer.name}</h3>
           <p className='foodCardPrice'>{formatToColombianMoney(offer.price)}</p>
         </div>
-        <div className='foodAvailabilityContainer'>
-          <p>Disponible hasta</p>
-          <p className='foodCardDate'>{formatToSpanishDate(offer.expiration)}</p>
+
+        <div className='offerLocation'>
+          <FaLocationDot className='icon' />
+          <p>{offer.location}</p>
         </div>
       </div>
 
-      <div className='offerLocation'>
-        <FaLocationDot className='icon' />
-        <p>{offer.location}</p>
-      </div>
+  
       
       <p className='description'>{offer.description}</p>
 

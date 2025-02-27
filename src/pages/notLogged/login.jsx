@@ -52,7 +52,7 @@ function Login() {
           type='text'
           placeholder='Usuario o correo electrónico'
           value={username}
-          onChange = {(e) => setUsername(e.target.value.replace(/\s/g, '').toLowerCase())}
+          onChange = {(e) => setUsername(e.target.value)}
           required
         />
 

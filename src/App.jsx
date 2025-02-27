@@ -110,10 +110,10 @@ function App() {
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="*" element={<MainPage />} />
-              <Route path="/login" element={!isLogged ? <Login />: <Navigate replace to={"/"}/>} />
+              <Route path="/login" element={!isLogged ? <Login />: <Navigate replace to={"/search"}/>} />
               <Route path="/signup" element={!isLogged ? <Signup />: <Navigate replace to={"/"}/>} />
 
-              <Route path="/search" element={isLogged ? <Catalogue /> : <Navigate replace to={"/login"}/>} />
+              <Route path="/search" element={ <Catalogue /> } />
               <Route path="/donate" element={isLogged ? <Donate /> : <Navigate replace to={"/login"}/>} />
               <Route path="/offers" element={isLogged && user.type === 'business' ? <Offers /> : <Navigate replace to={"/login"}/>} />
               <Route path="/createOffer" element={isLogged && user.type === 'business' ? <CreateOffer /> : <Navigate replace to={"/login"}/>} />

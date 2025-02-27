@@ -1,59 +1,73 @@
 import DonateCard from '../../components/FoodCards/DonateCard'
+import { MdAttachMoney } from "react-icons/md";
 
-const requests = [
+import { formatToColombianMoney } from '../../assets/constants.js';
+
+import { useState,useContext } from 'react';
+
+import MyContext from '../../context.js';
+
+const values = [
     {
-      image: "https://www.elespectador.com/resizer/v2/QQPTUGKWUJHCFGLSSUZRLXHBSM.png?auth=ae5e249004bb22441948fdd0d19be0e0a4fb85aa8728fca9c44a1f14554c35b4&width=920&height=613&smart=true&quality=60",
-      name: "Hamburguesa Clásica",
-      description: "Deliciosa hamburguesa con carne de res, queso cheddar y vegetales frescos.",
-      price: 5.99,
-      available: 20,
-      reserved: 5,
-      expiration: "2025-03-10"
+      image: "https://www.valoraanalitik.com/wp-content/uploads/2022/09/Chocoramo.jpg",
+      name: "Chocoramo",
+      price: 3000
     },
     {
-      image: "https://www.semana.com/resizer/dRqPnA3y--9HkjIcgQEHcjIwjV8=/arc-anglerfish-arc2-prod-semana/public/V65H6NID3FBLVGRHYB7J2OFROE.jpg",
-      name: "Pizza Pepperoni",
-      description: "Pizza artesanal con salsa de tomate, queso mozzarella y pepperoni.",
-      price: 12.99,
-      available: 0,
-      reserved: 3,
-      expiration: "2025-03-15"
+      image: "https://lanotapositiva.com/wp-content/uploads/2024/01/23471960_502982080070128_8485327596594136157_n.jpg",
+      name: "Corrientazo",
+      price: 15000
     },
     {
-      image: "https://cloudfront-us-east-1.images.arcpublishing.com/elespectador/JLYGWDUSXFDI7ITQECOXNAG674.jpg",
-      name: "Sushi Variado",
-      description: "Bandeja con 12 piezas de sushi fresco: nigiri, maki y sashimi.",
-      price: 18.50,
-      available: 10,
-      reserved: 2,
-      expiration: "2025-03-12"
+      image: "https://cdn.colombia.com/sdi/2024/11/08/el-pollo-asado-bajo-de-precio-en-colombia-y-en-varias-ciudades-celebran-por-buenas-noticias-con-la-inflacion-1262002.jpg",
+      name: "Pollo asado",
+      price: 35000
     },
     {
-      image: "https://www.elespectador.com/resizer/v2/DNKJ2AFQ4VBBVIEQ5ICCXCXO34.jpg?auth=f3bb96795db65e379eaea4de12a38d5df8017da3f5d9518738aa87e502c68dc5&width=920&height=613&smart=true&quality=60",
-      name: "Pasta Alfredo",
-      description: "Pasta fettuccine con salsa cremosa de queso parmesano y pollo.",
-      price: 10.99,
-      available: 25,
-      reserved: 8,
-      expiration: "2025-03-20"
+      image: "https://image.jimcdn.com/app/cms/image/transf/dimension=2140x10000:format=jpg/path/s79b46c029f74af8a/image/i8ef3d6ce27214cc4/version/1600381919/image.jpg",
+      name: "Arroba de arroz",
+      price: 50000
     }
   ];
 
-  const emptyrequests = [];
-  
-
 function Donate() {
+  const [donationAmount, setDonationAmount] = useState('');
+
+  const { putMessage, checkValidity } = useContext(MyContext);
+
+  const donateMoney = async(e, amount) => {
+    e.preventDefault()
+    fetch(import.meta.env.VITE_API_URL + "/donations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": await checkValidity()
+      },
+      body: JSON.stringify({amount: amount})
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      putMessage('Donación realizada con éxito')
+      setDonationAmount('')
+    })
+  }
 
   return (
     <div className='card' id='donate'>
-        <h2>Dona una comida</h2>
-        {requests.length === 0 ? <p className='emptySectionText'>No hay niguna petición actualmente.</p>:
+        <h2>Dona un alimento</h2>
+        
+        <form className='foodCardSearch' onSubmit={(e)=>donateMoney(e, donationAmount)}>
+         <MdAttachMoney className='icon' />
+          <input type="text" placeholder="Ingresa la cantidad a donar" value={formatToColombianMoney(donationAmount, true)} onChange={(e) =>setDonationAmount(e.target.value.replace(/\D/g, ""))} />
+        </form>
+
+        <p>O dona una cantidad preestablecida:</p>
+
         <div className="cardsContainer donate">
-          {requests.map((offer, index) => (
-            <DonateCard key={index} offer={offer} />
+          {values.map((offer, index) => (
+            <DonateCard key={index} offer={offer} onClick={(e)=>donateMoney(e,offer.price)} />
           ))}
         </div>
-        }
     </div>
   )
 }

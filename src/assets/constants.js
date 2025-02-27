@@ -4,6 +4,8 @@ export function formatToSpanishDate(isoDate) {
     return `${month.charAt(0).toUpperCase() + month.slice(1)} ${date.getDate()}, ${date.getFullYear()}`;
 }
 
-export function formatToColombianMoney(input) {
-    return '$' + parseInt(input, 10).toLocaleString('es-CO');
+export function formatToColombianMoney(input,noSign=false) {
+    if (input === '') return input;
+    if (noSign) return parseInt(input, 10).toLocaleString('es-CO');
+    else return '$' + parseInt(input, 10).toLocaleString('es-CO');
 }

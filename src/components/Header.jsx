@@ -42,18 +42,18 @@ function Header() {
     <header className={hasShadow ? 'withShadow':''}>
       <div className='mainLogoContainer'>
         <img src={logoDark} alt="Logo" />
-        <h1>La <b>Pagina</b></h1>
+        <h1>La <b>Pega</b></h1>
       </div>
 
       <nav className='headerNav'>
-        <a className={'headerButton '+ isActive('/search')} onClick={() => handleClick('/search')}>
+        <a className={'headerButton '+ isActive('/search')} onClick={() => navigate('/search')}>
           <FaSearch className='searchIcon'/>
         </a>
         <a className={'headerButton '+ isActive('/')} onClick={() => navigate('/')}>
           Inicio
         </a>
         <a className={'headerButton '+ isActive('/donate')} onClick={() => handleClick('/donate')}>
-          Dona una comida
+          Dona un alimento
         </a>
         {user && user.type === 'business' &&
           <a className={'headerButton '+ isActive('/offers')} onClick={() => handleClick('/offers')}>
