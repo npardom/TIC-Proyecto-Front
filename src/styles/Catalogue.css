@@ -135,7 +135,3 @@
 .custom-checkbox input:checked + .checkmark::after {
   opacity: 1;
 }
-
-.custom-checkbox input:checked + .checkmark + span {
-  font-weight: 600;
-}

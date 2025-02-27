@@ -7,6 +7,7 @@ function Catalogue() {
   const [filteredOffers, setFilteredOffers] = useState([]);
   const [businessFilters, setBusinessFilters] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
+  const [allSelected, setAllSelected] = useState(true);
 
   // Function to get offers from the business
   const getOffers = () => {
@@ -63,18 +64,28 @@ function Catalogue() {
   const toggleBusinessFilter = (business) => {
     setBusinessFilters(prevFilters => {
       const updatedFilters = { ...prevFilters, [business]: !prevFilters[business] };
+      setAllSelected(Object.values(updatedFilters).every(Boolean));
       return updatedFilters;
     });
+  };
+
+  // Handle select all toggle
+  const toggleAllFilters = () => {
+    const newState = !allSelected;
+    const updatedFilters = Object.keys(businessFilters).reduce((acc, business) => ({ ...acc, [business]: newState }), {});
+    setBusinessFilters(updatedFilters);
+    setAllSelected(newState);
   };
 
   // Update filtered offers when search term or filters change
   useEffect(() => { filterOffers(); }, [searchTerm, businessFilters]);
 
+  // Get offers on component mount
   useEffect(() => { getOffers(); }, []);
-  
+
   return (
     <div className='card' id='catalogue'>
-        <h2>Encuentra ofertas</h2>
+        <h2>Encuentra las mejores ofertas</h2>
 
         <div className='foodCardSearch'>
           <FaSearch className='icon' />
@@ -84,9 +95,17 @@ function Catalogue() {
         <div className="catalogueContainer">
 
           <div className="filtersContainer">
-            <h3>Tienda</h3>
+            <h3>Filtrar por tienda</h3>
+            <label className="custom-checkbox">
+              <input 
+                type="checkbox" 
+                checked={allSelected} 
+                onChange={toggleAllFilters} 
+              />
+              <span className="checkmark"></span>
+              <span>Todas</span>
+            </label>
             {Object.entries(businessFilters).map(([business, isChecked]) => (
-              
               <label key={business} className="custom-checkbox">
               <input 
                 type="checkbox" 
