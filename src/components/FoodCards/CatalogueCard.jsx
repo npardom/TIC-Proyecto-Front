@@ -69,21 +69,26 @@ function CatalogueCard({offer}) {
         </div>
 
         <div className='catalogueCardButtonsContainer'>
-          {isLogged && <button className="whiteNoBackground"
-          onClick={()=> {buyRequest()}}>
-            Solicitar donación
-          </button>
-          }
-
-          <button className="white "
+          <button className="whiteNoBackground"
           onClick={()=> {
             if (!isLogged) {
-              navigate("/login")
+              putMessage("Debes iniciar sesión para usar esta función")
             }else{
               buyRequest()
             }
           }}>
-            {isLogged ? "Comprar" : "Inicia sesión para comprar"}
+            Solicitar donación
+          </button>
+          
+          <button className="white"
+          onClick={()=> {
+            if (!isLogged) {
+              putMessage("Debes iniciar sesión para usar esta función")
+            }else{
+              buyRequest()
+            }
+          }}>
+            Comprar
           </button>
         </div>
       </div>
