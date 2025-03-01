@@ -69,8 +69,8 @@ function Signup() {
         placeholder={type === "client" ? 'Nombre de usuario' : 'Nombre del negocio'}
         value={username}
         onChange={(e) => {
-          if(type === "client") setUsername(e.target.value.replace(/\s/g, '').toLowerCase())
-          else setUsername(e.target.value.toLowerCase())  
+          if(type === "client") setUsername(e.target.value.replace(/\s/g, ''))
+          else setUsername(e.target.value)  
         }}
       />
 
