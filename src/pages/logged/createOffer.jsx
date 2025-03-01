@@ -1,5 +1,5 @@
 // React and React Router Imports
-import {  useContext, useState } from 'react';
+import {  useContext,useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { TiDelete } from "react-icons/ti";
@@ -13,7 +13,13 @@ function CreateOffer() {
   const navigate = useNavigate();
 
   // Global States
-  const { putMessage, checkValidity} = useContext(MyContext);
+  const { putMessage, user, checkValidity} = useContext(MyContext);
+
+   // Check that the user is a business
+  useEffect(()=> { 
+    if(user.type === "client") navigate("/search");
+  }, [user]);
+   
 
   // Local states
   const [name, setName] = useState("");

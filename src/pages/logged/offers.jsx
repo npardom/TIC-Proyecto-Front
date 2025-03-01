@@ -8,11 +8,14 @@ import MyContext from '../../context.js';
 function Offers() {
   const navigate = useNavigate();
 
-  const { myOffers, getMyOffers} = useContext(MyContext);
+  const { myOffers, user, getMyOffers} = useContext(MyContext);
 
   // Get the offers
-  useEffect(()=> { getMyOffers() }, []);
-  
+  useEffect(()=> { 
+    if(user.type === "client") { navigate("/search") }
+    else getMyOffers();
+  }, [user]);
+ 
   return (
     <div className='card' id='offers'>
         <div className='offersTitleContainer'>

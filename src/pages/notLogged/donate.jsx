@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import DonateCard from '../../components/FoodCards/DonateCard'
+import DonateCard from '../../components/FoodCards/DonateCard.jsx'
 import { MdAttachMoney } from "react-icons/md";
 
 import { formatToColombianMoney } from '../../assets/constants.js';

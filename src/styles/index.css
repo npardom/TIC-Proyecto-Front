@@ -180,7 +180,7 @@ input:focus ,  textarea:focus{
     flex-grow: 1;
     overflow-y: auto;
   
-    max-height: calc(100vh - 18em); 
+    max-height: calc(100vh - 20.5em); 
   
     width:100%;
     padding-right: 0.4em;

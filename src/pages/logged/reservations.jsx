@@ -8,14 +8,14 @@ function Reservations() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredReservations, setFilteredReservations] = useState([]);
 
+  const fetchReservations = async () => {
+    const reservations = await getAllReservations();
+    setFilteredReservations(reservations);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const reservations = await getAllReservations();
-      setFilteredReservations(reservations);
-    };
-  
-    fetchData();
-  }, []);
+    fetchReservations();
+  }, [user]);
 
   useEffect(() => {
     setFilteredReservations(reservations.filter((reservation) => reservation._id.includes(searchTerm)));
@@ -39,8 +39,8 @@ function Reservations() {
         <p className='emptySectionText'>No se encontró ninguna reserva.</p>
       ) : (
         <div className="cardsContainer">
-          {filteredReservations.map((offer, index) => (
-            <ReservationCard key={index} offer={offer} isBusiness={user.type === "business"} />
+          {filteredReservations.map((reservation, index) => (
+            <ReservationCard key={index} reservation={reservation} isBusiness={user.type === "business"} />
           ))}
         </div>
       )}

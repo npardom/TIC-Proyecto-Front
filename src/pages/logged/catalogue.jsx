@@ -17,22 +17,26 @@ function Catalogue() {
     (async () => {
       const fetchedOffers = await getAllOffers();
       setBusinessFilters(
-        fetchedOffers.reduce((acc, { businessName }) => ({ ...acc, [businessName]: true }), {})
+        fetchedOffers.reduce((acc, { user }) => ({ ...acc, [user.username]: true }), {})
       );
     })();
   }, []);
 
   const filteredOffers = useMemo(() => {
     return offers
-      .filter(({ name, description, businessName }) => {
+      .filter(({ name, description, user }) => {
         const matchesSearch = [name, description].some(text =>
           text.toLowerCase().includes(searchTerm.toLowerCase())
         );
-        return matchesSearch && businessFilters[businessName];
+        return matchesSearch && businessFilters[user.username];
       })
-      .sort((a, b) =>
-        sortBy === "date" ? new Date(b.date) - new Date(a.date) : a.price - b.price
-      );
+      .sort((a, b) => {
+        if (sortBy === "date") {
+          return new Date(a.expiration) - new Date(b.expiration);
+        } else {
+          return a.price - b.price;
+        }
+      });
   }, [offers, searchTerm, businessFilters, sortBy]);
 
   const toggleBusinessFilter = business => {
@@ -72,7 +76,7 @@ function Catalogue() {
               <label key={business} className="custom-checkbox">
                 <input type="checkbox" checked={isChecked} onChange={() => toggleBusinessFilter(business)} />
                 <span className="checkmark"></span>
-                <span>{business} ({offers.filter(o => o.businessName === business).length})</span>
+                <span>{business} ({offers.filter(o => o.user.username === business).length})</span>
               </label>
             ))}
 
@@ -81,7 +85,7 @@ function Catalogue() {
               <label key={key} className="custom-checkbox">
                 <input type="checkbox" checked={sortBy === key} onChange={() => setSortBy(key)} />
                 <span className="checkmark"></span>
-                <span>{key === "date" ? "Fecha" : "Precio"}</span>
+                <span>{key === "date" ? "Fecha más próxima" : "Precio más barato"}</span>
               </label>
             ))}
           </div>

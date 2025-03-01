@@ -11,13 +11,13 @@ import MyContext from "../../context.js";
 
 import {formatToColombianMoney, formatToSpanishDate} from '../../assets/constants.js'
 
-function ReservationCard({offer, isBusiness=false}) {
+function ReservationCard({reservation, isBusiness=false}) {
   const{ checkValidity,putMessage, getAllReservations } = useContext(MyContext);
 
   async function deleteReservation() {
     var confirmDelete = confirm("¿Validar el retiro de esta reserva?")
     if (!confirmDelete) return
-    fetch(import.meta.env.VITE_API_URL + "/reservation/deleteReservation/" + offer._id, {
+    fetch(import.meta.env.VITE_API_URL + "/reservation/deleteReservation/" + reservation._id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -34,13 +34,13 @@ function ReservationCard({offer, isBusiness=false}) {
   }
 
   return (
-    <div className='foodCard' style={{backgroundImage: `url(${offer.image})`}}>
+    <div className='foodCard' style={{backgroundImage: `url(${reservation.offer.image})`}}>
       
       <div className='foodCardHeader3'>
       
         <div className='foodCardDateContainer'>
           <MdDateRange className='icon' />
-          <p>Hasta {formatToSpanishDate(offer.expiration)}</p>
+          <p>Hasta {formatToSpanishDate(reservation.offer.expiration)}</p>
         </div>
 
         {isBusiness && 
@@ -53,8 +53,8 @@ function ReservationCard({offer, isBusiness=false}) {
 
 
       <div>
-        <h3>{offer.name} (x{offer.quantity})</h3>
-        <p className='foodCardPrice'>{formatToColombianMoney(offer.price * offer.quantity)}</p>
+        <h3>{reservation.offer.name} (x{reservation.quantity})</h3>
+        <p className='foodCardPrice'>{formatToColombianMoney(reservation.offer.price * reservation.quantity)}</p>
        </div>
 
 
@@ -65,18 +65,18 @@ function ReservationCard({offer, isBusiness=false}) {
           {isBusiness &&
           <div className='cardFooter3'>
             <FaAt className='icon' />
-            <p>{offer.username}</p>
+            <p>{reservation.receiver.username}</p>
           </div>
           }
 
           <div className='cardFooter3'>
             <FaLocationDot className='icon' />
-            <p>{offer.location}</p>
+            <p>{reservation.offer.location}</p>
           </div>
 
           <div className='cardFooter3'>
-            {offer.isPaid ? <FaCheckCircle className='icon' /> : <IoIosTime className='icon' />}
-            <p><b>{offer.isPaid ? 'Pagado' : 'Pago en tienda'}</b></p>
+            {reservation.isPaid ? <FaCheckCircle className='icon' /> : <IoIosTime className='icon' />}
+            <p><b>{reservation.isPaid ? 'Pagado' : 'Pago en tienda'}</b></p>
           </div>
 
 
@@ -84,7 +84,7 @@ function ReservationCard({offer, isBusiness=false}) {
 
         <div className='cardFooter2'>
           <p><b>Código de reserva</b></p>
-          <p>{offer._id}</p>
+          <p>{reservation._id}</p>
         </div>
 
       </div>

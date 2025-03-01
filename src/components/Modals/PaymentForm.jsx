@@ -83,19 +83,14 @@ function PaymentForm({isOffer=false}) {
         setIsLoading(true);
         fetch(import.meta.env.VITE_API_URL + "/donation/donate", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": await checkValidity()
-            },
-            body: JSON.stringify({ amount: payAmount })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ amount: payAmount }),
         })
-        .then((res) => res.json())
+        .then(() => new Promise((resolve) => setTimeout(resolve, 2000)))
         .then(() => {
-            setTimeout(() => {
-                setIsLoading(false);
-                setIsApproved(true);
-            }, 2000);
-        });
+            setIsApproved(true)
+            setIsLoading(false);
+        })
     };
 
     // Function to make a payment
@@ -108,14 +103,13 @@ function PaymentForm({isOffer=false}) {
                     "Authorization": await checkValidity() },
             body: JSON.stringify({offerId: payCardOffer._id, isPaid: isPaid, quantity: amount })
         })
+        .then(() => new Promise((resolve) => setTimeout(resolve, 2000)))
         .then((res) => res.json())
-        .then((res) => {  
-            setTimeout(() => {
-                setIsLoading(false);
-                setIsApproved(true);
-                getAllOffers();
-                setReservationCode(res.reservation._id);
-            }, 2000);
+        .then((res) => {
+            setIsLoading(false);
+            setIsApproved(true);
+            getAllOffers();
+            setReservationCode(res.reservation._id);
         })
     }
 

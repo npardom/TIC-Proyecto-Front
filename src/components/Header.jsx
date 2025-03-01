@@ -52,7 +52,7 @@ function Header() {
         <a className={'headerButton '+ isActive('/')} onClick={() => navigate('/')}>
           Inicio
         </a>
-        <a className={'headerButton '+ isActive('/donate')} onClick={() => handleClick('/donate')}>
+        <a className={'headerButton '+ isActive('/donate')} onClick={() => navigate('/donate')}>
           Dona un alimento
         </a>
         {isLogged && user.type === 'business' &&

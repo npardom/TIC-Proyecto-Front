@@ -48,7 +48,7 @@ function CatalogueCard({offer, isBusiness=false}) {
 
         <div className='foodCardDateContainer'>
           <FaStoreAlt  className='icon' />
-          <p>Ofrecido por <span>{offer.businessName}</span></p>
+          <p>Ofrecido por <span>{offer.user.username}</span></p>
         </div>
       </div>
   

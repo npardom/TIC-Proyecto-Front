@@ -49,6 +49,19 @@ function Signup() {
   return (
     <form onSubmit={handleSubmit} className='card formCard'>
       <h2>Crear cuenta</h2>
+
+      <p className='accountTypeTitle'>Tipo de cuenta</p>
+      <div className="radioContainer signup">
+        <button type="button" className={"radio " + (type === "client" ? "active" : "")}
+            onClick={() => setType("client")}> 
+          Cliente 
+        </button>
+        <button type="button" className={"radio " + (type === "business" ? "active" : "")}
+            onClick={() => setType("business")}> 
+          Negocio 
+        </button>
+      </div>
+
       <input
         required
         type='text'
@@ -81,17 +94,7 @@ function Signup() {
         required
       />
 
-      <p>Tipo de cuenta:</p>
-      <div className="radioContainer">
-        <button type="button" className={"radio " + (type === "client" ? "active" : "")}
-            onClick={() => setType("client")}> 
-          Cliente 
-        </button>
-        <button type="button" className={"radio " + (type === "business" ? "active" : "")}
-            onClick={() => setType("business")}> 
-          Negocio 
-        </button>
-      </div>
+      
 
       <div className="buttonsContainer">
         <button type='submit' className={"secondary " + (!validFields ? "disabled":'')} disabled={!validFields}>Registrarse</button>

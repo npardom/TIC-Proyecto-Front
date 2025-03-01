@@ -43,6 +43,10 @@
     flex:1;
 }
 
+.radioContainer.signup{
+    margin-bottom: 0.5em;
+}
+
 
 
 .fileInputContainer{
@@ -104,3 +108,7 @@
     cursor: pointer;
   }
   
+
+.accountTypeTitle{
+    margin-top: 0.2em !important;
+}

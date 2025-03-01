@@ -14,12 +14,11 @@ import Footer from './components/Footer.jsx';
 import Login from './pages/notLogged/login.jsx';
 import Signup from './pages/notLogged/signup.jsx';
 import MainPage from './pages/notLogged/mainPage.jsx';
+import Donate from './pages/notLogged/donate.jsx';
 
 import Offers from './pages/logged/offers.jsx';
 import CreateOffer from './pages/logged/createOffer.jsx';
-import Donate from './pages/logged/donate.jsx';
 import Reservations from './pages/logged/reservations.jsx';
-
 import Catalogue from './pages/logged/catalogue.jsx';
 
 // CSS Imports
@@ -31,7 +30,7 @@ function App() {
   const [isLogged, setIsLogged] = useState(localStorage.getItem('accessToken'))
   const [popUpIsShown, setPopUpIsShown] = useState(false)
   const [popUpMessage, setPopUpMessage] = useState('')
-  const [user, setUser] = useState(localStorage.getItem('accessToken') ? {type: 'business'} : {})
+  const [user, setUser] = useState(localStorage.getItem('accessToken') || {})
   const [myOffers, setMyOffers] =useState([])
 
   const [payCardVisible, setPayCardVisible] = useState(false);
@@ -54,7 +53,17 @@ function App() {
   function signOut() {
     localStorage.removeItem("accessToken")
     localStorage.removeItem("donationId")
-    window.location.reload()
+    setIsLogged(false)
+    setUser({})
+    setReservations([])
+    setOffers([])
+    setMyOffers([])
+    setDonationRequestApproved(false)
+    setPayAmount('')
+    setPayCardVisible(false)
+    setPayCardOffer({})
+    setPopUpIsShown(false)
+    setPopUpMessage('')
   }
 
   // Function to check token validity and refresh access token if it's expired
@@ -99,7 +108,7 @@ function App() {
 
   // Function to get offers from the business
   const getMyOffers = async () => {
-    fetch(import.meta.env.VITE_API_URL + "/offer/getByUser", {
+    fetch(import.meta.env.VITE_API_URL + "/offer/getByBusiness", {
       method: "GET",
       headers: { "Content-Type": "application/json",
                 "Authorization": await checkValidity() } 
@@ -108,50 +117,42 @@ function App() {
     .then((res) => setMyOffers(res))
   }
 
-  // Function to transform reservations
-  function transformReservations(orders) {
-    return orders.map((order) => {
-      const { _id, receiver, offer, isPaid, quantity, creation, __v } = order;
-      return {
-        _id,
-        username: receiver.username,
-        name: offer.name,
-        description: offer.description,
-        price: offer.price,
-        image: offer.image,
-        location: offer.location,
-        expiration: offer.expiration,
-        isPaid,
-        quantity,
-        creation,
-        __v,
-      };
-    });
-  }
-
   // Function to get reservations from the user or business
-  const getAllReservations = async () => {
-    const api = user.type === "business" ? "/reservation/getByBusiness" : "/reservation/getByUser";
-    const res = await fetch(import.meta.env.VITE_API_URL + api, {
+  const getAllReservations = async () => 
+    fetch(import.meta.env.VITE_API_URL + (user.type === "business" ? "/reservation/getByBusiness" : "/reservation/getByUser"), {
       headers: {
         "Content-Type": "application/json",
         "Authorization": await checkValidity()
       },
-    });
-    const data = transformReservations(await res.json());
-    setReservations(data);
-    return data;
-    
-};
+    })
+    .then(res => res.json())
+    .then(data => (setReservations(data), data));
 
   // Function to get all available offers
   const getAllOffers = async () => 
     fetch(import.meta.env.VITE_API_URL + '/offer/getAllAvailable')
-      .then(res => res.json())
-      .then(data => (setOffers(data), data));
+    .then(res => res.json())
+    .then(data => (setOffers(data), data));
+
+    // Get user
+  const getUserInfo = async () => {
+    fetch(import.meta.env.VITE_API_URL + "/user/getUser", {
+      method: "GET",
+      headers: { "Content-Type": "application/json",
+                "Authorization": await checkValidity() } 
+    })
+    .then((res) => res.json())
+    .then((res) => setUser(res))
+  }
+
+  // Get the user information from the database
+  useEffect(()=> { 
+    if (isLogged) getUserInfo();
+  }, [isLogged]);
+  
 
   return (
-    <MyContext.Provider value={{reservations, setReservations,getAllReservations, donationRequestApproved, setDonationRequestApproved,offers, getAllOffers, payCardOffer, setPayCardOffer,payAmount, setPayAmount, payCardVisible, setPayCardVisible, user, setUser, checkValidity , isLogged, setIsLogged ,signOut, putMessage, popUpIsShown, setPopUpIsShown, myOffers, setMyOffers, getMyOffers}}>
+    <MyContext.Provider value={{reservations, setReservations,getAllReservations, donationRequestApproved, setDonationRequestApproved,offers, getAllOffers, payCardOffer, setPayCardOffer,payAmount, setPayAmount, payCardVisible, setPayCardVisible, user, checkValidity , isLogged, setIsLogged ,signOut, putMessage, popUpIsShown, setPopUpIsShown, myOffers, setMyOffers, getMyOffers}}>
       <Router>
         <div className="appContainer">
           <PopUp message = {popUpMessage} />
@@ -164,9 +165,9 @@ function App() {
               <Route path="/signup" element={!isLogged ? <Signup />: <Navigate replace to={"/"}/>} />
 
               <Route path="/search" element={ <Catalogue /> } />
-              <Route path="/donate" element={isLogged ? <Donate /> : <Navigate replace to={"/login"}/>} />
-              <Route path="/offers" element={isLogged && user.type === 'business' ? <Offers /> : <Navigate replace to={"/login"}/>} />
-              <Route path="/createOffer" element={isLogged && user.type === 'business' ? <CreateOffer /> : <Navigate replace to={"/login"}/>} />
+              <Route path="/donate" element={<Donate /> } />
+              <Route path="/offers" element={isLogged ? <Offers /> : <Navigate replace to={"/login"}/>} />
+              <Route path="/createOffer" element={isLogged ? <CreateOffer /> : <Navigate replace to={"/login"}/>} />
 
               <Route path="/reservations" element={isLogged ? <Reservations /> : <Navigate replace to={"/login"}/>} />
             </Routes>
