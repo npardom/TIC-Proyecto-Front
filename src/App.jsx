@@ -1,5 +1,5 @@
 // React and React Router Imports
-import { BrowserRouter  as Router, Routes, Route , Navigate} from 'react-router-dom';
+import { BrowserRouter  as Router, Routes, Route , Navigate, data} from 'react-router-dom';
 import { useEffect, useState } from 'react'
 
 // Context and Constants Import
@@ -18,6 +18,7 @@ import MainPage from './pages/notLogged/mainPage.jsx';
 import Offers from './pages/logged/offers.jsx';
 import CreateOffer from './pages/logged/createOffer.jsx';
 import Donate from './pages/logged/donate.jsx';
+import Reservations from './pages/logged/reservations.jsx';
 
 import Catalogue from './pages/logged/catalogue.jsx';
 
@@ -31,7 +32,17 @@ function App() {
   const [popUpIsShown, setPopUpIsShown] = useState(false)
   const [popUpMessage, setPopUpMessage] = useState('')
   const [user, setUser] = useState(localStorage.getItem('accessToken') ? {type: 'business'} : {})
-  const [offers, setOffers] =useState([])
+  const [myOffers, setMyOffers] =useState([])
+
+  const [payCardVisible, setPayCardVisible] = useState(false);
+  const [payAmount, setPayAmount] = useState('');
+
+  const [payCardOffer, setPayCardOffer] = useState({});
+
+  const [offers, setOffers] = useState([]);
+  const [reservations, setReservations] = useState([]);
+
+  const [donationRequestApproved, setDonationRequestApproved] = useState(false);
 
   // Function to show a pop up message
   const putMessage = (message) => {
@@ -42,11 +53,8 @@ function App() {
   // Function to signout
   function signOut() {
     localStorage.removeItem("accessToken")
-    setUser({})
-    setIsLogged(false)
-    setPopUpMessage('') 
-    setPopUpIsShown(false)
-    setOffers([])
+    localStorage.removeItem("donationId")
+    window.location.reload()
   }
 
   // Function to check token validity and refresh access token if it's expired
@@ -97,11 +105,53 @@ function App() {
                 "Authorization": await checkValidity() } 
     })
     .then((res) => res.json())
-    .then((res) => setOffers(res))
+    .then((res) => setMyOffers(res))
   }
 
+  // Function to transform reservations
+  function transformReservations(orders) {
+    return orders.map((order) => {
+      const { _id, receiver, offer, isPaid, quantity, creation, __v } = order;
+      return {
+        _id,
+        username: receiver.username,
+        name: offer.name,
+        description: offer.description,
+        price: offer.price,
+        image: offer.image,
+        location: offer.location,
+        expiration: offer.expiration,
+        isPaid,
+        quantity,
+        creation,
+        __v,
+      };
+    });
+  }
+
+  // Function to get reservations from the user or business
+  const getAllReservations = async () => {
+    const api = user.type === "business" ? "/reservation/getByBusiness" : "/reservation/getByUser";
+    const res = await fetch(import.meta.env.VITE_API_URL + api, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": await checkValidity()
+      },
+    });
+    const data = transformReservations(await res.json());
+    setReservations(data);
+    return data;
+    
+};
+
+  // Function to get all available offers
+  const getAllOffers = async () => 
+    fetch(import.meta.env.VITE_API_URL + '/offer/getAllAvailable')
+      .then(res => res.json())
+      .then(data => (setOffers(data), data));
+
   return (
-    <MyContext.Provider value={{ user, setUser, checkValidity , isLogged, setIsLogged ,signOut, putMessage, popUpIsShown, setPopUpIsShown, offers, getMyOffers, setOffers}}>
+    <MyContext.Provider value={{reservations, setReservations,getAllReservations, donationRequestApproved, setDonationRequestApproved,offers, getAllOffers, payCardOffer, setPayCardOffer,payAmount, setPayAmount, payCardVisible, setPayCardVisible, user, setUser, checkValidity , isLogged, setIsLogged ,signOut, putMessage, popUpIsShown, setPopUpIsShown, myOffers, setMyOffers, getMyOffers}}>
       <Router>
         <div className="appContainer">
           <PopUp message = {popUpMessage} />
@@ -117,6 +167,8 @@ function App() {
               <Route path="/donate" element={isLogged ? <Donate /> : <Navigate replace to={"/login"}/>} />
               <Route path="/offers" element={isLogged && user.type === 'business' ? <Offers /> : <Navigate replace to={"/login"}/>} />
               <Route path="/createOffer" element={isLogged && user.type === 'business' ? <CreateOffer /> : <Navigate replace to={"/login"}/>} />
+
+              <Route path="/reservations" element={isLogged ? <Reservations /> : <Navigate replace to={"/login"}/>} />
             </Routes>
           </div>
           <Footer/>  

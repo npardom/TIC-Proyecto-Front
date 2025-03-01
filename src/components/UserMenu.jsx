@@ -1,6 +1,8 @@
 import { useContext, useState, useEffect } from 'react'
 import { useNavigate,useLocation } from 'react-router-dom';
-import { GrLogout } from "react-icons/gr";
+
+import { FaStoreAlt } from "react-icons/fa";
+import { FaUserAlt } from "react-icons/fa";
 
 // Context and Constants Import
 import MyContext from '../context.js';
@@ -37,14 +39,18 @@ function UserMenu() {
 
   return (
     <div className='userMenuContainer'>
-      <button className={isActive(isLogged ? '/user' : '/login')}
-      onClick={() => navigate(isLogged ? '/user' : '/login')}>
+      <button onClick={() => !isLogged ? navigate('/login') : handleSignOut()}
+      className={`userMenuButton ${isActive('/login')}`}
+      title={isLogged ? 'Cerrar sesión' : 'Ingresar'}>
+        {isLogged && user.type === 'business' &&
+          <FaStoreAlt className='signOutIcon' />
+        }
+        {isLogged && user.type === 'client' &&
+          <FaUserAlt className='signOutIcon' />
+        }
         {isLogged ? user.username : 'Ingresar'}
+        
       </button>
-
-      {isLogged && 
-      <GrLogout className='signOutIcon' onClick={handleSignOut} title='Cerrar Sesión' />
-      }
 
     </div>
   )

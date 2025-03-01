@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,87.5,300..800;1,87.5,300..800&display=swap');
 
 @import "./Modals/PopUp.css";
+@import "./Modals/PaymentForm.css";
 
 @import "./Header.css";
 @import "./Footer.css";
@@ -205,4 +206,32 @@ input:focus ,  textarea:focus{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+button.noButton{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: default;
+}
+
+
+button.noButton.white{
+    color: white;
+}
+
+button.noButton:hover{
+    background: none;
+    color: black;
+    border: none;
+}
+
+button.noButton.white:hover{
+    color: white;
+}
+
+.userMenuButton{
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
 }

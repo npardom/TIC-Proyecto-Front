@@ -10,7 +10,7 @@
   
     padding: 1.5em;
     background-image: url("https://images.unsplash.com/photo-1612830720002-4b3b3b3b3b3b");
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.75);
     background-blend-mode: darken;
     background-size: cover;
     background-position: center;
@@ -48,7 +48,7 @@
 }
 
 .foodCardPrice{
-    font-size: 2em;
+    font-size: 1.9em;
 }
 
 .foodCardDateContainer{
@@ -166,6 +166,10 @@
     padding: 3em;
 }
 
+.foodCard.donateCard h3{
+    text-align: center;
+}
+
 .foodCard.donateCard:hover{
     opacity: 0.9;
 }
@@ -175,6 +179,73 @@
 }
 
 .catalogueCardHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.cardFooter2{
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    background-color: white;
+    color: black;
+    text-shadow: none;
+
+    padding: 0.5em 1.5em;
+
+    align-self: flex-end;
+    border-radius: 0.7em;
+}
+
+.cardFooter3{
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+}
+
+.cardFooter3 .icon{
+    font-size: 1.2em;
+}
+
+.cardFooter4{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 0.8em;
+}
+
+.cardFooter5{
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+}
+
+.validateReservation{
+    display: flex;
+
+    border: 2px solid white;
+    padding: 0.3em 1em;
+
+    border-radius: 1em;
+    gap: 0.5em;
+    cursor: pointer;
+}
+
+.validateReservation:hover{
+    background-color: white;
+    color: black;
+    text-shadow: none;
+}
+
+.validateReservation:active{
+    transform: scale(0.98);
+    opacity: 0.8;
+}
+
+.foodCardHeader3{
     display: flex;
     justify-content: space-between;
     align-items: flex-start;

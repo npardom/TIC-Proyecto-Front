@@ -6,30 +6,36 @@ import { FaStoreAlt } from "react-icons/fa";
 import {formatToColombianMoney, formatToSpanishDate} from '../../assets/constants.js'
 
 import MyContext from "../../context.js";
-import { useNavigate } from 'react-router-dom';
 
-function CatalogueCard({offer}) {
-  const { putMessage, checkValidity, isLogged } = useContext(MyContext);
+function CatalogueCard({offer, isBusiness=false}) {
+  const { setDonationRequestApproved, putMessage, setPayCardOffer, isLogged, setPayCardVisible, setPayAmount, checkValidity} = useContext(MyContext);
 
-
-  const buyRequest = async() => {
-    var confirmDonate= confirm("¿Estás seguro de que deseas reservar esta oferta?")
-    if (confirmDonate){
-      fetch(import.meta.env.VITE_API_URL + "/offer/buy", {
-        method: "POST",
-        headers: { "Content-Type": "application/json",
-                  "Authorization": await checkValidity() },
-        body: JSON.stringify({offerId: offer._id})
-      })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.message) putMessage(res.message)
-        if (res.error) putMessage(res.error)
-      })
-    }
+  const buyRequest = () => {
+    setPayCardVisible(true)
+    setPayAmount(offer.price)
+    setPayCardOffer(offer)
   }
 
-  const navigate = useNavigate()
+  // Function to request a donation
+  const requestDonation = async () => {
+    fetch(import.meta.env.VITE_API_URL + "/donation/requestDonation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json",
+                "Authorization": await checkValidity() },
+        body: JSON.stringify( {offerId: offer._id} )
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.error) {
+        putMessage(res.error)
+      }
+      else if (res.message && res.message === "Reserva creada exitosamente con fondos de donación") {
+        setDonationRequestApproved(true)
+        setPayCardOffer(offer)
+        localStorage.setItem("donationId", res.reservation._id)
+      }
+    })
+}
 
   return (
     <div className='foodCard' style={{backgroundImage: `url(${offer.image})`}}>
@@ -57,8 +63,6 @@ function CatalogueCard({offer}) {
             <p>{offer.location}</p>
           </div>
         </div>
-  
-    
         
         <p className='description'>{offer.description}</p>
 
@@ -68,17 +72,21 @@ function CatalogueCard({offer}) {
           <p className='number'>{offer.available}</p>
         </div>
 
+        {!isBusiness &&
         <div className='catalogueCardButtonsContainer'>
+
+        {offer.price > 0 &&
           <button className="whiteNoBackground"
           onClick={()=> {
             if (!isLogged) {
               putMessage("Debes iniciar sesión para usar esta función")
             }else{
-              buyRequest()
+              requestDonation()
             }
           }}>
             Solicitar donación
           </button>
+        }
           
           <button className="white"
           onClick={()=> {
@@ -88,10 +96,12 @@ function CatalogueCard({offer}) {
               buyRequest()
             }
           }}>
-            Comprar
+            Reservar
           </button>
         </div>
+        }
       </div>
+      
     </div>
   )
 }

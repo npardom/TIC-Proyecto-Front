@@ -43,7 +43,7 @@ function OfferCard({offer}) {
   }
 
   return (
-    <div className='foodCard offer' style={{backgroundImage: `url(${offer.image})`}}>
+    <div className='foodCard' style={{backgroundImage: `url(${offer.image})`}}>
       
       <IoMdCloseCircle title='Borrar oferta' className='closeIcon' onClick={() => deleteOffer()} />
       
@@ -71,12 +71,12 @@ function OfferCard({offer}) {
 
       <div className='offerUnitsInfo'>
         <div className='offerAvailable'>
-          <FaMinus className={'icon ' + (offer.available === 0 ? 'disabled' : '')} onClick={() => changeAvailableAmount(-1)} />
+          <button type ='button' className='noButton white'><FaMinus className={'icon ' + (offer.available === 0 ? 'disabled' : '')} onClick={() => changeAvailableAmount(-1)} /></button>
           <div className='availableInfo'>
             <p>Disponibles</p>
             <p className='number'>{offer.available}</p>
           </div>
-          <FaPlus className='icon' onClick={() => changeAvailableAmount(1)} />
+          <button type ='button' className='noButton white'><FaPlus className='icon' onClick={() => changeAvailableAmount(1)} /></button>
 
         </div>
 

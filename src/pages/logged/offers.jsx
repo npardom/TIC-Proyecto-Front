@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import {  useEffect, useContext } from 'react';
 import OfferCard from '../../components/FoodCards/OfferCard';
 
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import MyContext from '../../context.js';
 function Offers() {
   const navigate = useNavigate();
 
-  const { offers, getMyOffers} = useContext(MyContext);
+  const { myOffers, getMyOffers} = useContext(MyContext);
 
   // Get the offers
   useEffect(()=> { getMyOffers() }, []);
@@ -19,9 +19,9 @@ function Offers() {
           <h2>Mis ofertas</h2>
           <button className='secondary' onClick={() => navigate("/createOffer")}>Crear oferta</button>
         </div>
-        {offers.length === 0 ? <p className='emptySectionText'>No tienes ninguna oferta actualmente.</p>:
+        {myOffers.length === 0 ? <p className='emptySectionText'>No tienes ninguna oferta actualmente.</p>:
         <div className="cardsContainer">
-          {offers.map((offer, index) => (
+          {myOffers.map((offer, index) => (
             <OfferCard key={index} offer={offer} />
           ))}
         </div>

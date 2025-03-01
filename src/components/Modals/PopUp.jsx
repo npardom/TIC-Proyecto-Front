@@ -6,7 +6,7 @@ import MyContext from '../../context.js';
 
 function PopUp({message}) {
   // Global States
-  const {setPopUpIsShown, popUpIsShown, popUpType } = useContext(MyContext);
+  const {setPopUpIsShown, popUpIsShown } = useContext(MyContext);
 
   // Set a timeout to hide the popUp after 4 seconds
   useEffect(() => {

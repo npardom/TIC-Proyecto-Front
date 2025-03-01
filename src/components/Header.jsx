@@ -55,9 +55,14 @@ function Header() {
         <a className={'headerButton '+ isActive('/donate')} onClick={() => handleClick('/donate')}>
           Dona un alimento
         </a>
-        {user && user.type === 'business' &&
+        {isLogged && user.type === 'business' &&
           <a className={'headerButton '+ isActive('/offers')} onClick={() => handleClick('/offers')}>
             Mis ofertas
+          </a>
+        }
+        {isLogged && 
+          <a className={'headerButton '+ isActive('/reservations')} onClick={() => handleClick('/reservations')}>
+            {user.type === "business" ? "Gestionar reservas" : "Mis reservas"}
           </a>
         }
       </nav>

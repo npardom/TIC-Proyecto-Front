@@ -1,9 +1,13 @@
+import { useContext } from 'react';
+
 import DonateCard from '../../components/FoodCards/DonateCard'
 import { MdAttachMoney } from "react-icons/md";
 
 import { formatToColombianMoney } from '../../assets/constants.js';
 
-import { useState,useContext } from 'react';
+import { useState } from 'react';
+
+import PaymentForm from '../../components/Modals/PaymentForm.jsx';
 
 import MyContext from '../../context.js';
 
@@ -28,35 +32,31 @@ const values = [
       name: "Arroba de arroz",
       price: 50000
     }
-  ];
+];
 
 function Donate() {
   const [donationAmount, setDonationAmount] = useState('');
 
-  const { putMessage, checkValidity } = useContext(MyContext);
+  const { setPayAmount, setPayCardVisible} = useContext(MyContext);
 
-  const donateMoney = async(e, amount) => {
-    e.preventDefault()
-    fetch(import.meta.env.VITE_API_URL + "/donations", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": await checkValidity()
-      },
-      body: JSON.stringify({amount: amount})
-    })
-    .then((res) => res.json())
-    .then((res) => {
-      putMessage('Donación realizada con éxito')
-      setDonationAmount('')
-    })
+  const donateMoney = (amount) => {
+    setDonationAmount('');
+    setPayAmount(amount);
+    setPayCardVisible(true);
   }
 
   return (
+    <>
+    <PaymentForm />
     <div className='card' id='donate'>
         <h2>Dona un alimento</h2>
         
-        <form className='foodCardSearch' onSubmit={(e)=>donateMoney(e, donationAmount)}>
+        <form className='foodCardSearch' onSubmit={(e)=>{
+          e.preventDefault();
+          if (donationAmount === '') return;
+          if (donationAmount === '0') return;
+          donateMoney(donationAmount)
+        }}>
          <MdAttachMoney className='icon' />
           <input type="text" placeholder="Ingresa la cantidad a donar" value={formatToColombianMoney(donationAmount, true)} onChange={(e) =>setDonationAmount(e.target.value.replace(/\D/g, ""))} />
         </form>
@@ -65,10 +65,11 @@ function Donate() {
 
         <div className="cardsContainer donate">
           {values.map((offer, index) => (
-            <DonateCard key={index} offer={offer} onClick={(e)=>donateMoney(e,offer.price)} />
+            <DonateCard key={index} offer={offer} onClick={()=>donateMoney(offer.price)} />
           ))}
         </div>
     </div>
+    </>
   )
 }
 
