@@ -54,21 +54,14 @@ function CreateOffer() {
   }
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0]; // Get the selected file
+    const file = e.target.files[0]; 
     if (!file) return;
 
     setFileName(file.name);
   
     const reader = new FileReader();
-    reader.readAsDataURL(file); // Convert to Base64
-  
-    reader.onload = () => {
-      setImage(reader.result); // Store Base64 string in state
-    };
-  
-    reader.onerror = (error) => {
-      console.error("Error converting file to Base64:", error);
-    };
+    reader.readAsDataURL(file);
+    reader.onload = () => setImage(reader.result);
   };
   
   return (
@@ -109,6 +102,7 @@ function CreateOffer() {
         <input
           type='date'
           placeholder='Fecha de expiración'
+          min={new Date().toISOString().split('T')[0]}
           value={expiration}
           onChange = {(e) => setExpiration(e.target.value)}
           required

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Context and Constants Import
 import MyContext from '../../context.js';
+import {isValidUsername} from '../../assets/constants.js';
 
 function Signup() {
   // Local states
@@ -16,7 +17,7 @@ function Signup() {
   // Global States
   const { putMessage } = useContext(MyContext);
 
-  const validFields = (username !== '') && (email !== '') && (password !== '') && (password === password2)
+  const validFields = (type === "client" ? isValidUsername(username) : username !== '') && (email !== '') && (password !== '') && (password === password2)
 
   // Navigate function
   const navigate = useNavigate()
@@ -67,7 +68,10 @@ function Signup() {
         type='text'
         placeholder={type === "client" ? 'Nombre de usuario' : 'Nombre del negocio'}
         value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        onChange={(e) => {
+          if(type === "client") setUsername(e.target.value.replace(/\s/g, '').toLowerCase())
+          else setUsername(e.target.value.toLowerCase())  
+        }}
       />
 
       <input

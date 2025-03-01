@@ -103,13 +103,14 @@ function PaymentForm({isOffer=false}) {
                     "Authorization": await checkValidity() },
             body: JSON.stringify({offerId: payCardOffer._id, isPaid: isPaid, quantity: amount })
         })
-        .then(() => new Promise((resolve) => setTimeout(resolve, 2000)))
         .then((res) => res.json())
         .then((res) => {
-            setIsLoading(false);
-            setIsApproved(true);
-            getAllOffers();
-            setReservationCode(res.reservation._id);
+            setTimeout(() => {
+                setIsLoading(false);
+                setIsApproved(true);
+                getAllOffers();
+                setReservationCode(res.reservation._id);
+            }, 2000);
         })
     }
 
@@ -168,7 +169,7 @@ function PaymentForm({isOffer=false}) {
                 <>
                 <p className='reservationCode'>{reservationCode}</p>
                 <p className='justified'>
-                    Para reclamar tu compra, debes ir al establecimiento <b>{payCardOffer.businessName}</b>, ubicado en <b>{payCardOffer.location}</b>.
+                    Para reclamar tu compra, debes ir al establecimiento <b>{payCardOffer.user.username}</b>, ubicado en <b>{payCardOffer.location}</b>.
                     <br/><br/><br/>
                     <i>Válido hasta {formatToSpanishDate(payCardOffer.expiration)}.</i>
                 </p>

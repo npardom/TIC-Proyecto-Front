@@ -12,8 +12,8 @@ function Offers() {
 
   // Get the offers
   useEffect(()=> { 
-    if(user.type === "client") { navigate("/search") }
-    else getMyOffers();
+    if(user.type === "client") navigate("/search")
+    else getMyOffers()
   }, [user]);
  
   return (

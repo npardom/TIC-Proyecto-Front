@@ -16,10 +16,12 @@ import Signup from './pages/notLogged/signup.jsx';
 import MainPage from './pages/notLogged/mainPage.jsx';
 import Donate from './pages/notLogged/donate.jsx';
 
+
 import Offers from './pages/logged/offers.jsx';
 import CreateOffer from './pages/logged/createOffer.jsx';
 import Reservations from './pages/logged/reservations.jsx';
 import Catalogue from './pages/logged/catalogue.jsx';
+import ScanQR from './pages/logged/scanQR.jsx';
 
 // CSS Imports
 import './styles/index.css'
@@ -160,6 +162,7 @@ function App() {
           <div className="content">
             <Routes>
               <Route path="/" element={<MainPage />} />
+              <Route path="/scanQR" element={isLogged ? <ScanQR />: <Navigate replace to={"/search"}/>} />
               <Route path="*" element={<MainPage />} />
               <Route path="/login" element={!isLogged ? <Login />: <Navigate replace to={"/search"}/>} />
               <Route path="/signup" element={!isLogged ? <Signup />: <Navigate replace to={"/"}/>} />

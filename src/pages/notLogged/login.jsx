@@ -22,7 +22,7 @@ function Login() {
   const handleSubmit= (e) => {
     e.preventDefault()
     // Create body
-    const body = { username: username, email: username, password: password }
+    const body = { email: username, password: password }
     // Send request
     fetch(import.meta.env.VITE_API_URL + "/user/login", {
       method: "POST",
@@ -33,7 +33,7 @@ function Login() {
     .then((res) => {
       if (res.error) {
         if (res.error === "User not found." || res.error === "Wrong password.") {
-          putMessage("Usuario y/o contraseña incorrectos.")
+          putMessage("Correo y/o contraseña incorrectos.")
         }else{
           putMessage(res.error)
         }
@@ -49,8 +49,8 @@ function Login() {
         <h2>Ingresar</h2>
 
         <input 
-          type='text'
-          placeholder='Usuario o correo electrónico'
+          type='email'
+          placeholder='Correo electrónico'
           value={username}
           onChange = {(e) => setUsername(e.target.value)}
           required
