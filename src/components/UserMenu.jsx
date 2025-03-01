@@ -12,13 +12,16 @@ const isActive = (path) => useLocation().pathname === path ? 'active' : '';
 
 function UserMenu() {
   // Global States and Functions
-  const { signOut, isLogged, user} = useContext(MyContext)
+  const { signOut, isLogged, user, putMessage} = useContext(MyContext)
 
   const navigate = useNavigate();
 
   // Define function to handle sign out
   function handleSignOut() {
-    if (window.confirm("¿Estas seguro que deseas cerrar sesión?")) signOut()
+    if (window.confirm("¿Estas seguro que deseas cerrar sesión?")) {
+      signOut()
+      putMessage('Sesión cerrada exitosamente')
+    }
   }
 
   return (
