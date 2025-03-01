@@ -1,0 +1,77 @@
+#qrScanContainer{
+  position: relative;
+  top:0;
+  
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+
+  transition: all 1s;
+
+  text-align: center;
+}
+
+#qrScanContainer .closeIcon{
+    position: absolute;
+    top:0.3em;
+    right:0.3em;
+    font-size: 1.8em;
+}
+
+#qrScanContainer.visible{
+  top:2em;
+}
+
+#qrScanContainer .qrCodeTextDescription{
+  font-size: 1.1em;
+  margin: 0 0 1em 0;
+}
+
+#qrResult{
+  position: fixed;
+  top:0;
+  left:50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+
+  background-color: rgb(5, 88, 147);
+  color:white;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+
+  transition: all 1s;
+
+  text-align: center;
+  gap:0.8em;
+
+  opacity: 0;
+  pointer-events: none;
+
+  padding: 2em;
+  width: fit-content;
+}
+
+#qrResult.visible{
+  top:4em;
+  opacity: 1;
+  pointer-events: all;
+}
+
+#qrResult.error{
+  background-color: #d51515;
+}
+
+#qrResult .closeIcon{
+  position: absolute;
+  top:0.3em;
+  right:0.3em;
+}
+
+#qrResult .icon{
+  font-size: 5.5em;
+  margin:  0;
+}
+
+#qrResult h3{
+  font-weight: normal;
+  font-size: 1.1em;
+}

@@ -26,3 +26,11 @@ export function isValidUsername(username) {
 
     return noSpaces && startsWithLetter && validCharacters;
 }
+
+export function formatCode(input) {
+    return input
+        .replace(/\W/g, '')
+        .toUpperCase()
+        .match(/.{1,4}/g)
+        ?.join('-') || '';  
+}

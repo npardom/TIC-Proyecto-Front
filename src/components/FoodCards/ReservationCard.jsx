@@ -9,7 +9,7 @@ import { FaCheckCircle } from "react-icons/fa";
 
 import MyContext from "../../context.js";
 
-import {formatToColombianMoney, formatToSpanishDate} from '../../assets/constants.js'
+import {formatToColombianMoney, formatCode, formatToSpanishDate} from '../../assets/constants.js'
 
 function ReservationCard({reservation, isBusiness=false}) {
   const{ checkValidity,putMessage, getAllReservations } = useContext(MyContext);
@@ -84,7 +84,7 @@ function ReservationCard({reservation, isBusiness=false}) {
 
         <div className='cardFooter2'>
           <p><b>Código de reserva</b></p>
-          <p>{reservation._id}</p>
+          <p>{formatCode(reservation._id)}</p>
         </div>
 
       </div>

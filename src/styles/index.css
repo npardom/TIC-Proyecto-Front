@@ -2,6 +2,7 @@
 
 @import "./Modals/PopUp.css";
 @import "./Modals/PaymentForm.css";
+@import "./Modals/QrScan.css";
 
 @import "./Header.css";
 @import "./Footer.css";

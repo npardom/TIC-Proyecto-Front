@@ -198,6 +198,8 @@
 
     align-self: flex-end;
     border-radius: 0.7em;
+
+    text-align: right;
 }
 
 .cardFooter3{

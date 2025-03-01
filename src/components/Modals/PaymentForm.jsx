@@ -3,7 +3,6 @@ import { useContext, useRef, useEffect, useState } from 'react';
 import { IoCloseCircle } from "react-icons/io5";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaRegCheckCircle } from "react-icons/fa";
-import { MdFileDownload } from "react-icons/md";
 
 import { FaMinus } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa";
@@ -15,7 +14,7 @@ import html2canvas from 'html2canvas';
 
 // Context and Constants Import
 import MyContext from '../../context.js';
-import { formatToColombianMoney, formatExpirationDate, formatCreditCardNumber, formatToSpanishDate } from '../../assets/constants.js';
+import { formatToColombianMoney,formatCode, formatExpirationDate, formatCreditCardNumber, formatToSpanishDate } from '../../assets/constants.js';
 
 function PaymentForm({isOffer=false}) {
 
@@ -40,6 +39,8 @@ function PaymentForm({isOffer=false}) {
     const [amount, setAmount] = useState(1);
     const [reservationCode, setReservationCode] = useState('');
     const [isPaid, setIsPaid] = useState(false);
+
+    const validFields = cardNumber.length === 16 && expirationDate.length === 4 && cvv.length === 3;
 
     const handleCardNumberChange = (e) => {
         const rawValue = e.target.value.replace(/\D/g, "").slice(0, 16);
@@ -167,7 +168,7 @@ function PaymentForm({isOffer=false}) {
                 <p className='reservationCodeIntro'>{isOffer ? 'Tu código de reserva es' : 'Gracias por tu contribución.'}</p>
                 {isOffer &&
                 <>
-                <p className='reservationCode'>{reservationCode}</p>
+                <p className='reservationCode'>{formatCode(reservationCode)}</p>
                 <p className='justified'>
                     Para reclamar tu compra, debes ir al establecimiento <b>{payCardOffer.user.username}</b>, ubicado en <b>{payCardOffer.location}</b>.
                     <br/><br/><br/>
@@ -253,7 +254,10 @@ function PaymentForm({isOffer=false}) {
             }
 
             <div className="buttonsContainer">
-                <button type='submit' className="secondary">
+                <button type='submit'
+                className={"secondary " + ((!validFields && (isPaid || !isOffer))  ? "disabled":'')}
+                disabled = {!validFields && (isPaid || !isOffer) }
+                >
                     {isOffer ? 'Reservar' : 'Donar'}
                 </button>
             </div>
