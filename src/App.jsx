@@ -58,7 +58,6 @@ function App() {
     setIsLogged(false)
     setUser({})
     setReservations([])
-    setOffers([])
     setMyOffers([])
     setDonationRequestApproved(false)
     setPayAmount('')
