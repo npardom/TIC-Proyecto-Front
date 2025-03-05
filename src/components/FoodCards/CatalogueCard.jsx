@@ -55,7 +55,9 @@ function CatalogueCard({offer, isBusiness=false}) {
         <div className='foodCardHeader'>
           <div>
             <h3>{offer.name}</h3>
-            <p className='foodCardPrice'>{formatToColombianMoney(offer.price)}</p>
+            <p className='foodCardPrice'>
+              {offer.price === 0 ? "Gratis ($0)" : formatToColombianMoney(offer.price)}
+            </p>
           </div>
   
           <div className='offerLocation'>

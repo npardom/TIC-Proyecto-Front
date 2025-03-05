@@ -2,7 +2,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2em 2em;
+    padding: 1em 2em 0.6em 2em;
 
   
     position: sticky;
@@ -31,14 +31,9 @@ header.withShadow {
 }
 
 .mainLogoContainer{
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
+    width: 7em;
 }
 
-.mainLogoContainer img {
-    width: 2.5em;
-}
 
 .searchIcon{
     display: block;

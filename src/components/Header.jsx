@@ -40,10 +40,8 @@ function Header() {
 
   return (
     <header className={hasShadow ? 'withShadow':''}>
-      <div className='mainLogoContainer'>
-        <img src={logoDark} alt="Logo" />
-        <h1>La <b>Pega</b></h1>
-      </div>
+      <img src={logoDark} className="mainLogoContainer" />
+ 
 
       <nav className='headerNav'>
         <a className={'headerButton '+ isActive('/search')} onClick={() => navigate('/search')}>
